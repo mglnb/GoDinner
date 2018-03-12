@@ -1,44 +1,44 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+// * {
+//   box-sizing: border-box;
+//   margin: 0;
+//   padding: 0;
+// }
 
-.todoList {
-  display: flex;
-  flex: 1;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 50vw;
-  margin: 0 auto;
-  &__input {
-    width: 100%;
-    input {
-      width: 100%;
-      padding: 20px 40px;
-      font-size: 30px;
-      outline-color: #555;
-    }
-  }
-  &__list {
-    width: 100%;
-    ul {
-      display: flex;
-      list-style: none;
-      width: 100%;
-      flex-direction: column;
-    }
-    li {
-      width: 100%;
-      padding: 30px;
-      &:nth-child(odd) {
-        background: rgba(0, 0, 0, .1);
-      }
-      &:nth-child(even) {
-        background: rgba(0, 0, 0, .1);
-      }
-    }
-  }
-}
+// .todoList {
+//   display: flex;
+//   flex: 1;
+//   height: 100vh;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+//   width: 50vw;
+//   margin: 0 auto;
+//   &__input {
+//     width: 100%;
+//     input {
+//       width: 100%;
+//       padding: 20px 40px;
+//       font-size: 30px;
+//       outline-color: #555;
+//     }
+//   }
+//   &__list {
+//     width: 100%;
+//     ul {
+//       display: flex;
+//       list-style: none;
+//       width: 100%;
+//       flex-direction: column;
+//     }
+//     li {
+//       width: 100%;
+//       padding: 30px;
+//       &:nth-child(odd) {
+//         background: rgba(0, 0, 0, .1);
+//       }
+//       &:nth-child(even) {
+//         background: rgba(0, 0, 0, .1);
+//       }
+//     }
+//   }
+// }
