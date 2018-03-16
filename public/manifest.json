@@ -1,15 +1,41 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "RealTaste",
+  "name": "RealTaste - A Restaurant App",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "./Logo-R/0.75x/Logoldpi.png",
+      "sizes": "69x69",
+      "type": "image/png"
+    },
+    {
+      "src": "./Logo-R/1x/Logomdpi.png",
+      "sizes": "93x93",
+      "type": "image/png"
+    },
+    {
+      "src": "./Logo-R/1.5x/Logohdpi.png",
+      "sizes": "138x138",
+      "type": "image/png"
+    },
+    {
+      "src": "./Logo-R/2x/Logoxhdpi.png",
+      "sizes": "185x185",
+      "type": "image/png"
+    },
+    {
+      "src": "./Logo-R/3x/Logoxxhdpi.png",
+      "sizes": "277x277",
+      "type": "image/png"
+    },
+    {
+      "src": "./Logo-R/4x/Logoxxxhdpi.png",
+      "sizes": "369x369",
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#D3222A",
+  "background_color": "#ffffff",
+  "orientation": "portrait"
 }
