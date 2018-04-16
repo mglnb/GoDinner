@@ -1,0 +1,26 @@
+.login {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  svg {
+    margin-bottom: 50px;
+  }
+  .input {
+    width: 100%;
+  }
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60vh;
+    flex-direction: column;
+    width: 50vw;
+    padding: 50px;
+  }
+  &__button {
+    width: 100px;
+  }
+}
