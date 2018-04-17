@@ -20,6 +20,10 @@ class SidebarComponent extends React.Component {
   componentDidMount () {
     this.setState({ visible: this.props.visible });
   }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    this.setState({visible: nextProps.visible})
+  }
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name })
@@ -29,9 +33,9 @@ class SidebarComponent extends React.Component {
     return (
       <div>
         <Router>
-          <Sidebar as={Menu} animation='push' width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
-            {this.state.menu.map(value => (
-              <Menu.Item href={`#/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} active={activeItem === value.name} onClick={this.handleItemClick} name={value.name} >
+          <Sidebar as={Menu} width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
+            {this.state.menu.map((value, key) => (
+              <Menu.Item key={key} href={`#/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} active={activeItem === value.name} onClick={this.handleItemClick} name={value.name} >
                 <Icon name={value.name} />
                 {value.text}
               </Menu.Item>

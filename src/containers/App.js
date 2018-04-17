@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import RestaurantContainer from './RestaurantContainer'
-import { Switch, Route } from "react-router"
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import './App.scss'
 import LoginContainer from './LoginContainer';
@@ -23,15 +22,13 @@ class App extends Component {
   render () {
     const { visible } = this.state
     return (
-      <div>
-        <HashRouter>
-          <ApolloProvider client={client}>
-            <Route path='/' component={LoginContainer} />
-          </ApolloProvider>
-        </HashRouter>
-        <Sidebar visible={window.location.pathname == '/' ? false : visible}>
-          <HashRouter>
-            <ApolloProvider client={client}>
+      <HashRouter>
+        <Route render={(location) => (
+          <Sidebar location={location} visible={location.location.pathname === '/' ? false : visible}>
+            <ApolloProvider client={client} >
+              <Route exact path='/' component={LoginContainer} />
+            </ApolloProvider>
+            <ApolloProvider client={secret}>
               <Switch>
                 {/*<Route exact path='/' component={Home}/>*/}
                 <Route path='/restaurant/:param' component={RestaurantContainer} />
@@ -39,10 +36,9 @@ class App extends Component {
                 <Route path='/client' />
               </Switch>
             </ApolloProvider>
-          </HashRouter>
-        </Sidebar>
-      </div>
-
+          </Sidebar>
+        )} />
+      </HashRouter>
     )
   }
 }
