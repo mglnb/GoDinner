@@ -6,14 +6,19 @@ import './App.scss'
 import LoginContainer from './LoginContainer';
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-const secret = new ApolloClient({
-  uri: "https://godinner-backend.herokuapp.com/graphql/secret"
-});
-
-
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 const client = new ApolloClient({
   uri: "https://godinner-backend.herokuapp.com/graphql"
 });
+
+// TODO Arrumar para fazer requisição autenticado.
+const secret = new ApolloClient({
+  uri: 'https://godinner-backend.herokuapp.com/graphql/secret',
+  cache: InMemoryCache()
+});
+
 class App extends Component {
   state = { visible: true }
 
