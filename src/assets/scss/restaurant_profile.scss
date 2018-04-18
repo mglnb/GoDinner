@@ -1,0 +1,69 @@
+.restaurant_profile {
+  width: calc(100vw - 270px);
+  padding-top: 150px;
+  margin: 50px;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 3px;
+  flex-direction: column;
+  &__header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    background: white;
+  }
+  &__img {
+    width: 160px;
+    height: 160px;
+    margin-top: calc((160px / 2) * -1);
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid rgba(100, 150, 255, 0.5);
+  }
+  &__name {
+    font-size: 36px;
+  }
+  &__tab {
+    width: 100%;
+    background: white;
+    .tabular {
+      border-bottom: none !important;
+    } // Reset Semantic UI
+    .item {
+      border: none !important;
+      box-shadow: none !important;
+      display: flex;
+      flex-direction: column;
+      &.active {
+        border-bottom: 1px solid black;
+      }
+      i {
+        margin-bottom: 10px !important;
+      }
+    }
+    .tab {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 20px !important;
+    }
+  }
+  .ui.form {
+    .field {
+      .ui.input {
+        input {
+          border: 1px solid #eee;
+        }
+        .ui.label {
+          text-align: right;
+          width: 160px;
+          padding: 15px 0 ;
+          background: transparent;
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+}

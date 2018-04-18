@@ -1,0 +1,16 @@
+#sidebar {
+  display: flex;
+  width: 150px;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #343434;
+  .item {
+    height: 100px;
+    display: flex;
+    color: white;
+    text-decoration: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+}

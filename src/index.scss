@@ -1,19 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Cardo|Montserrat');
-@import '../node_modules/semantic-ui-css/semantic.min.css';
-* {
-  font-family: 'Cardo', serif;
-}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Montserrat', 'Times New Roman', Times, serif
+* {
+  font-family:  sans-serif;
 }
 body {
   margin: 0;
   padding: 0;
   font-family: Montserrat;
 }
+
+@import './assets/scss/app';
+@import './assets/scss/loader';
+@import './assets/scss/login_container';
+@import './assets/scss/restaurant_container';
+@import './assets/scss/restaurant_profile';
+@import './assets/scss/sidebar';

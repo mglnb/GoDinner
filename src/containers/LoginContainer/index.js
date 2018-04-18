@@ -2,7 +2,6 @@ import React from 'react';
 import { Input, Button, Icon } from "semantic-ui-react";
 import gql from 'graphql-tag'
 import { ApolloConsumer } from 'react-apollo'
-import './index.scss'
 
 const login = gql`
 query Login($email: String!, $password: String!) {
@@ -36,8 +35,10 @@ class LoginContainer extends React.Component {
       localStorage['is'] = data.login.is
       if(data.client) {
         localStorage['id'] = data.login.client.id
+        this.props.history.push('/client/home')
       } else {
         localStorage['id'] = data.login.restaurant.id
+        this.props.history.push('/restaurant/home')
       }
     } catch (e) {
       console.log(e)
