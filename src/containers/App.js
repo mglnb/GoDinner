@@ -4,13 +4,9 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Sidebar from '../components/Sidebar'
 import routes, { RouteWithSubRoutes } from '../routes'
-const client = new ApolloClient({
-  uri: "https://godinner-backend.herokuapp.com/graphql"
-});
 
 const secret = new ApolloClient({
   uri: "https://godinner-backend.herokuapp.com/graphql/secret",
-
   request: async (operation) => {
     const token = await localStorage.getItem('token');
     operation.setContext({
@@ -18,9 +14,12 @@ const secret = new ApolloClient({
         authorization: token
       }
     });
-  }
+  },
 })
 
+const client = new ApolloClient({
+  uri: "https://godinner-backend.herokuapp.com/graphql"
+});
 class App extends Component {
   state = { visible: true }
 
