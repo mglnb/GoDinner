@@ -18,7 +18,7 @@ const RestaurantProfile = () => (
         return <Loader size='huge' />
       if (error)
         return `${error}`
-
+      console.log('render')
       const restaurant = data.restaurant[0]
       return data && (
         <section className='restaurant_profile'>

@@ -16,6 +16,21 @@
     background: white;
   }
   &__img {
+    &:hover {
+      cursor: pointer;
+      opacity: .3;
+      transition: .5s;
+      &~h1 {
+        position: relative;
+        transition: .7s ease-in-out;
+        &::before {
+          opacity: 1;
+          transition: .7s ease-in-out;
+          left: 51%;
+        }
+      }
+    }
+    transition: .7s ease-in-out;
     width: 160px;
     height: 160px;
     margin-top: calc((160px / 2) * -1);
@@ -25,6 +40,23 @@
   }
   &__name {
     font-size: 36px;
+    transition: .7s ease-in-out;
+    &::before {
+      content: '\f044';
+      display: block;
+      opacity: 0;
+      transition: .7s ease-in-out;
+      position: absolute;
+      top: -128px;
+      left: 75%;
+      transform: translate(-60%, 0);
+      font-family: outline-icons;
+      font-size: 36px;
+      z-index: 1000;
+      font-weight: 100;
+      color: rgba(0, 0, 0, .6);
+      pointer-events: none;
+    }
   }
   &__tab {
     width: 100%;
@@ -59,7 +91,7 @@
         .ui.label {
           text-align: right;
           width: 160px;
-          padding: 15px 0 ;
+          padding: 15px 0;
           background: transparent;
           margin-right: 30px;
         }

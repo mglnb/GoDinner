@@ -4,9 +4,9 @@ import React from 'react';
 class RestaurantContainer extends React.Component {
 	render () {
 		return (
-			<div>
+			<React.Fragment>
 				oi
-			</div>
+			</React.Fragment>
 		)
 	}
 }

@@ -29,7 +29,7 @@ class SidebarComponent extends React.Component {
   render () {
     const { activeItem } = this.state
     return (
-      <div>
+      <React.Fragment>
         <Sidebar id="sidebar" as={Menu} width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
           {this.state.menu.map((value, key) => (
             <Menu.Item key={key} href={`#/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} active={activeItem === value.name} onClick={this.handleItemClick} name={value.name} >
@@ -41,7 +41,7 @@ class SidebarComponent extends React.Component {
         <Sidebar.Pusher>
           {this.props.children}
         </Sidebar.Pusher>
-      </div>
+      </React.Fragment>
     )
   }
 
