@@ -1,5 +1,6 @@
 import RestaurantContainer from '../containers/RestaurantContainer/index.js'
 import RestaurantProfile from '../components/RestaurantProfile'
+import RestaurantPosts from '../components/RestaurantPosts'
 export default [
   // {
   //   exact: true,
@@ -22,7 +23,7 @@ export default [
   },
   {
     path: '/restaurant/posts',
-    component: RestaurantContainer
+    component: RestaurantPosts
   },
   {
     path: '/restaurant/reservas',

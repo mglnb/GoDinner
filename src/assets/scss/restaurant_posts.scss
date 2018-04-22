@@ -1,0 +1,15 @@
+.restaurant_posts {
+  width: calc(100vw - 270px);
+  margin: 50px;
+  display: flex;
+  align-items: flex-start;
+  padding: 50px;
+  flex-direction: column;
+  &__header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    height: 75px;
+  }
+}

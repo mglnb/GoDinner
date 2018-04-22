@@ -1,9 +1,12 @@
 #sidebar {
   display: flex;
-  width: 150px;
+  width: 200px;
   min-height: 100vh;
   flex-direction: column;
-  background: #343434;
+  background-color: white;
+  background-image: linear-gradient(to left, rgba(0, 20, 41, 0.79), rgba(0, 20, 41, 0.79)), url('https://lorempixel.com/400/1024/food');
+  background-size: cover;
+  background-position: center;
   .item {
     height: 100px;
     display: flex;

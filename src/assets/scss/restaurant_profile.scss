@@ -1,22 +1,25 @@
 .restaurant_profile {
-  width: calc(100vw - 270px);
+  width: calc(100vw - 330px);
   padding-top: 150px;
-  margin: 50px;
-  background: url('https://lorempixel.com/1024/600/abstract/?11856') top center / contain;
+  margin: 50px 50px 50px 100px;
+  background: url('https://lorempixel.com/1024/600/abstract/?11856') top center / cover;
   display: flex;
   align-items: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 3px;
+  border-radius: 25px;
   flex-direction: column;
+  textarea[name=description] {
+    resize: none;
+  }
   &__header {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 50%;
     background: white;
-    box-shadow: 1px -1px 34px -1px rgba(0,0,0,0.7);
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
+    box-shadow: 1px -1px 34px -1px rgba(0, 0, 0, 0.7);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
   &__img {
     &:hover {
@@ -39,7 +42,10 @@
     margin-top: calc((160px / 2) * -1);
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid rgba(100, 150, 255, 0.5);
+    border: 5px solid rgba(100,
+    150,
+    255,
+    0.5);
   }
   &__name {
     font-size: 36px;
@@ -61,9 +67,41 @@
       pointer-events: none;
     }
   }
+  &__profile {
+    display: flex;
+    flex: 3;
+    .ui.card {
+      width: 98%;
+    }
+  }
+  &__column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    .ui.card {
+      flex: 1;
+      width: 98%;
+      margin-left: 2%;
+      .content:first-child {
+        flex-grow: 0;
+      }
+      &:first-child {
+        &>.content:last-child {
+          overflow-y: scroll;
+        }
+      }
+    }
+  }
   &__tab {
     width: 100%;
     background: white;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 50px;
+    .button {
+      margin: 0 auto;
+      display: block;
+    }
     .tabular {
       border-bottom: none !important;
     } // Reset Semantic UI
@@ -83,6 +121,8 @@
       border: none !important;
       box-shadow: none !important;
       padding: 20px !important;
+      border-bottom-left-radius: 50px !important;
+      border-bottom-right-radius: 50px !important;
     }
   }
   .ui.form {

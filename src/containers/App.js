@@ -1,32 +1,32 @@
-import React, { Component } from 'react'
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import React, {Component} from 'react'
+import {HashRouter, Switch, Route} from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
-import { ApolloProvider } from 'react-apollo'
+import {ApolloProvider} from 'react-apollo'
 import Sidebar from '../components/Sidebar'
-import routes, { RouteWithSubRoutes } from '../routes'
+import routes, {RouteWithSubRoutes} from '../routes'
 
 const secret = new ApolloClient({
-  uri: "https://godinner-backend.herokuapp.com/graphql/secret",
+  uri: "http://localhost:8000/graphql/secret",
   request: async (operation) => {
     const token = await localStorage.getItem('token');
     operation.setContext({
       headers: {
-        authorization: token
+        authorization: token,
       }
     });
   },
 })
 
 const client = new ApolloClient({
-  uri: "https://godinner-backend.herokuapp.com/graphql"
+  uri: "http://localhost:8000/graphql",
 });
 class App extends Component {
-  state = { visible: true }
+  state = {visible: true}
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+  toggleVisibility = () => this.setState({visible: !this.state.visible})
 
   render () {
-    const { visible } = this.state
+    const {visible} = this.state
     return (
       <HashRouter>
         <Route render={(location) => (

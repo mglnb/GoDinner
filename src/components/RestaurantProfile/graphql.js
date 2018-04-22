@@ -4,9 +4,17 @@ query restaurant ($id: Int!) {
   restaurant(id: $id)  {
     id, name, subname, location, number, phone_number, cellphone_number, cpnj, avatar_url, description
 		user { id, name, email }
-		stars {
-			id, star
-			client { id, name, lastname }
+		orders {
+			id
+			menu_options {
+				id
+				name
+			}
+			client {
+				name
+				avatar_url
+			}
+			star
 		}
 		bookings {
 			id
@@ -79,5 +87,11 @@ mutation restaurantUpdate (
 				email
 			}
 		}
+	}
+`
+
+export const ALTER_PASSWORD = gql`
+	mutation($id: ID! $old_password: String! $new_password: String!) {
+		resetPassword(id:$id old_password: $old_password new_password:$new_password)
 	}
 `
