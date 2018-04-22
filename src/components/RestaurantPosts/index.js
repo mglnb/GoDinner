@@ -6,7 +6,7 @@ class RestaurantPosts extends React.Component {
       <div className="restaurant_posts">
         <div className="restaurant_posts__header">
           <h1>Posts</h1>
-          <Button basic circular  className="restaurant_posts__addbutton" animated color='blue'>
+          <Button basic circular className="restaurant_posts__addbutton" animated color='blue'>
             <Button.Content hidden>Novo</Button.Content>
             <Button.Content visible>
               <Icon name='plus' />
@@ -16,7 +16,7 @@ class RestaurantPosts extends React.Component {
         <Card.Group itemsPerRow={3}>
           {Array.from(new Array(10)).map((_, index) => (
 
-            <Card link href={`#/restaurant/posts/${index}`}>
+            <Card link href={`#/restaurant/posts/${index}`} key={index}>
               <Image src='https://lorempixel.com/1024/600/business/?11856' />
               <Card.Content>
                 <Card.Header>Como coisar tais coisas</Card.Header>

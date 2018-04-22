@@ -4,16 +4,71 @@
   min-height: 100vh;
   flex-direction: column;
   background-color: white;
-  background-image: linear-gradient(to left, rgba(0, 20, 41, 0.79), rgba(0, 20, 41, 0.79)), url('https://lorempixel.com/400/1024/food');
   background-size: cover;
   background-position: center;
   .item {
-    height: 100px;
+    height: 40px;
     display: flex;
-    color: white;
+    color: #666;
     text-decoration: none;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    font-size: 12px;
+    justify-content: flex-start;
+    transition: .5s;
+    &:hover {
+      color: $blue;
+      background: white !important;
+      i {
+        color: $blue !important;
+      }
+    }
+    &.active {
+      color: $blue !important;
+      background: white !important;
+      i {
+        color: $blue !important;
+      }
+    }
+    i {
+      transition: .5s;
+      margin: 0 !important;
+      font-size: 10px !important;
+      margin-right: 25px !important;
+      margin-left: 3px !important;
+      color: #CCC;
+    }
+  }
+}
+
+.navbar {
+  height: 50px;
+  width: calc(100% - 200px);
+  background: white;
+  margin-left: 200px; 
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .ui.dropdown {
+    padding: 10px 30px;
+    border-bottom: 2px solid $blue;
+    margin-right: 100px;
+    div[role=option] {
+      font-size: 12px !important;
+      background: white;
+      font-weight: 100 !important;
+      i:first-child {
+        transition: .5s;
+        font-size: 10px !important;
+        color: #CCC;
+      }
+      &:hover, &.selected {
+        background: white !important;
+        color: $blue !important;
+        i:first-child {
+          color: $blue !important;
+        }
+      }
+    }
   }
 }

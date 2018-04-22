@@ -1,11 +1,14 @@
-
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+$blue: #108ee9;
 * {
-  font-family:  sans-serif;
+  font-family: Poppins, sans-serif;
 }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: Montserrat;
+  font-family: Poppins, sans-serif;
+  background: #f8f8f8;
 }
 
 @import './assets/scss/app';

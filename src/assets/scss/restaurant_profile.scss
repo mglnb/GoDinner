@@ -27,9 +27,9 @@
       opacity: .3;
       transition: .5s;
       &~h1 {
-        position: relative;
         transition: .7s ease-in-out;
         &::before {
+          top: -128px;
           opacity: 1;
           transition: .7s ease-in-out;
           left: 51%;
@@ -42,14 +42,13 @@
     margin-top: calc((160px / 2) * -1);
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid rgba(100,
-    150,
-    255,
-    0.5);
+    border: 5px solid $blue;
   }
   &__name {
     font-size: 36px;
     transition: .7s ease-in-out;
+    position: relative;
+    
     &::before {
       content: '\f044';
       display: block;
