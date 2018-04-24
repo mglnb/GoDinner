@@ -45,7 +45,7 @@
   height: 50px;
   width: calc(100% - 200px);
   background: white;
-  margin-left: 200px; 
+  margin-left: 200px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -53,6 +53,7 @@
     padding: 10px 30px;
     border-bottom: 2px solid $blue;
     margin-right: 100px;
+    a[role=option],
     div[role=option] {
       font-size: 12px !important;
       background: white;
@@ -62,7 +63,8 @@
         font-size: 10px !important;
         color: #CCC;
       }
-      &:hover, &.selected {
+      &:hover,
+      &.selected {
         background: white !important;
         color: $blue !important;
         i:first-child {

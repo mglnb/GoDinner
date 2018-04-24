@@ -18,6 +18,7 @@ const RestaurantProfile = () => (
       const restaurant = data.restaurant[0]
       return data && (
         <React.Fragment>
+          <h1 className="restaurant_profile__h1">Meu Perfil</h1>
           <section className='restaurant_profile'>
             <div className='restaurant_profile__header'>
               <img className='restaurant_profile__img' src={restaurant.avatar_url.replace(/640\/640/g, '160/160')} alt='Avatar' />

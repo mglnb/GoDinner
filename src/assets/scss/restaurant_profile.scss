@@ -1,13 +1,17 @@
 .restaurant_profile {
   width: calc(100vw - 330px);
   padding-top: 150px;
-  margin: 50px 50px 50px 100px;
+  margin: 0 50px 50px 100px;
   background: url('https://lorempixel.com/1024/600/abstract/?11856') top center / cover;
   display: flex;
   align-items: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   border-radius: 25px;
   flex-direction: column;
+  &__h1 {
+    margin: 40px 100px;
+    padding-top: 50px;
+  }
   textarea[name=description] {
     resize: none;
   }

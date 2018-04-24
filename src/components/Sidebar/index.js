@@ -6,6 +6,7 @@ class SidebarComponent extends React.Component {
     super(props);
     this.state = {
       visible: this.props.visible,
+      activeItem: '',
       menu: [
         {name: 'computer', text: 'Dashboard'},
         {name: 'food', text: 'Meu Perfil'},
@@ -14,9 +15,9 @@ class SidebarComponent extends React.Component {
         {name: 'shop', text: 'Pedidos'}
       ],
       dropdown: [
-        {key: 'user', text: 'Account', icon: 'user'},
-        {key: 'settings', text: 'Settings', icon: 'settings'},
-        {key: 'sign-out', text: 'Sign Out', icon: 'sign out'},
+        {key: 'user',  text: 'Perfil', href: "#/restaurant/meuperfil", icon: 'food'},
+        {key: 'settings', text: 'Configurações', icon: 'settings'},
+        {key: 'sign-out', text: 'Sair', href: "#/", icon: 'sign out'},
       ]
     }
   }
@@ -32,20 +33,23 @@ class SidebarComponent extends React.Component {
   handleItemClick = (e, {name}) => {
     this.setState({activeItem: name})
   }
+  isActive () {
+
+
+  }
   render () {
-    const {activeItem} = this.state
     return (
       <React.Fragment>
         <Sidebar id="sidebar" as={Menu} width='thin' visible={this.state.visible} icon='labeled'>
           <Logo style={{transform: 'scale(0.4) translateX(-250px)'}} />
           {this.state.menu.map((value, key) => (
-            <Menu.Item key={key} href={`#/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} active={activeItem === value.name} onClick={this.handleItemClick} name={value.name} >
+            <Menu.Item key={key} href={`#/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} active={this.props.location.location.pathname.includes(value.text.toLocaleLowerCase().replace(/ /g, ''))} onClick={this.handleItemClick} name={value.name} >
               <Icon name={value.name} />
               {value.text}
             </Menu.Item>
           ))}
         </Sidebar>
-        <div className="navbar">
+        <div className="navbar" style={{display: this.state.visible ? '' : 'none'}}>
           <Dropdown trigger={<span><Image avatar circular src="https://lorempixel.com/70/70/people" /></span>} options={this.state.dropdown} pointing={'top right'} additionPosition={'bottom'} />
 
 

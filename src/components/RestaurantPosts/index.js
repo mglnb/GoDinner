@@ -5,7 +5,7 @@ class RestaurantPosts extends React.Component {
     return (
       <div className="restaurant_posts">
         <div className="restaurant_posts__header">
-          <h1>Posts</h1>
+          <h1>Postagens</h1>
           <Button basic circular className="restaurant_posts__addbutton" animated color='blue'>
             <Button.Content hidden>Novo</Button.Content>
             <Button.Content visible>
