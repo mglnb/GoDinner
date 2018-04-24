@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar'
 import routes, {RouteWithSubRoutes} from '../routes'
 
 const secret = new ApolloClient({
-  uri: "http://localhost:8000/graphql/secret",
+  uri: "https://godinner-backend.herokuapp.com/graphql/secret",
   request: async (operation) => {
     const token = await localStorage.getItem('token');
     operation.setContext({
@@ -18,7 +18,7 @@ const secret = new ApolloClient({
 })
 
 const client = new ApolloClient({
-  uri: "http://localhost:8000/graphql",
+  uri: "https://godinner-backend.herokuapp.com/graphql",
 });
 class App extends Component {
   state = {visible: true}
