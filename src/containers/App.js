@@ -5,8 +5,10 @@ import {ApolloProvider} from 'react-apollo'
 import Sidebar from '../components/Sidebar'
 import routes, {RouteWithSubRoutes} from '../routes'
 
+const urlProd = "https://godinner-backend.herokuapp.com"
+const urlHml = "http://localhost:8000"
 const secret = new ApolloClient({
-  uri: "https://godinner-backend.herokuapp.com/graphql/secret",
+  uri: urlHml + "/graphql/secret",
   request: async (operation) => {
     const token = await localStorage.getItem('token');
     operation.setContext({
@@ -18,10 +20,14 @@ const secret = new ApolloClient({
 })
 
 const client = new ApolloClient({
-  uri: "https://godinner-backend.herokuapp.com/graphql",
+  uri: urlHml + "/graphql",
 });
 class App extends Component {
-  state = {visible: true}
+  constructor (props) {
+    super(props)
+    this.state = {visible: true}
+
+  }
 
   toggleVisibility = () => this.setState({visible: !this.state.visible})
 

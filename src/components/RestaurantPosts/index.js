@@ -15,7 +15,6 @@ class RestaurantPosts extends React.Component {
         </div>
         <Card.Group itemsPerRow={3}>
           {Array.from(new Array(10)).map((_, index) => (
-
             <Card link href={`#/restaurant/posts/${index}`} key={index}>
               <Image src='https://lorempixel.com/1024/600/business/?11856' />
               <Card.Content>
@@ -36,5 +35,4 @@ class RestaurantPosts extends React.Component {
     )
   }
 }
-
 export default RestaurantPosts

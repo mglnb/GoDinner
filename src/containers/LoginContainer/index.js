@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input, Button, Icon } from "semantic-ui-react";
+import {Input, Button, Icon, Message} from "semantic-ui-react";
 import gql from 'graphql-tag'
-import { ApolloConsumer } from 'react-apollo'
+import {ApolloConsumer} from 'react-apollo'
 import Logo from '../../components/Logo'
 const login = gql`
 query Login($email: String!, $password: String!) {
@@ -19,25 +19,29 @@ query Login($email: String!, $password: String!) {
 `
 
 
-class LoginContainer extends React.Component {
-  state = {
-    loading: false,
-    called: false,
-    error: null
+class LoginContainer extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.state = {
+      loading: false,
+      called: false,
+      error: null
+    }
   }
   handleSubmit = async (e, client) => {
     e.preventDefault()
+    this.setState({loading: false, called: false, error: null})
     let form = new FormData(this.form)
     try {
-      this.setState({ loading: true, called: true })
-      const { data } = await client.query({
+      this.setState({loading: true, called: true})
+      const {data} = await client.query({
         query: login,
         variables: {
           email: form.get('email'),
           password: form.get('password')
         }
       })
-      this.setState({ loading: false })
+      this.setState({loading: false})
       localStorage['token'] = "Bearer " + data.login.token
       localStorage['is'] = data.login.is
       if (data.client) {
@@ -48,10 +52,63 @@ class LoginContainer extends React.Component {
         this.props.history.push('/restaurant/home')
       }
     } catch (e) {
-      this.setState({ error: e.message })
+      this.setState({error: e})
     }
   }
-  render() {
+
+  handleError (error) {
+    let msg = ''
+    if (error.includes('$email')) {
+      msg = "Insira seu email"
+      this.setState({emailError: true})
+    } else {
+      this.setState({emailError: false})
+    }
+    if (error.includes('$password')) {
+      msg = "Insira sua senha"
+      this.setState({passwordError: true})
+    } else {
+      this.setState({passwordError: false})
+    }
+
+    if (error.includes('inválidos')) {
+      msg = error.replace('GraphQL error:', '')
+    }
+    return msg
+  }
+  handleDismiss = () => {
+    this.setState({error: null, loading: false, called: false})
+  }
+
+  status () {
+
+    if (this.state.loading && this.state.called && !this.state.error) {
+      return (
+        <Message icon>
+          <Icon name='circle notched' loading />
+          <Message.Content>
+            <Message.Header>Aguarde um pouquinho</Message.Header>
+            Estamos verificando suas credenciais
+         </Message.Content>
+        </Message>
+      )
+    }
+    if (
+      this.state.called && this.state.error) {
+      return (
+        <Message icon negative onDismiss={this.handleDismiss}>
+          <Icon name='x' />
+          <Message.Content>
+            <Message.Header>Ops! ocorreu um erro </Message.Header>
+            {this.handleError(this.state.error.message)}
+          </Message.Content>
+        </Message>
+      )
+    }
+
+
+  }
+  render () {
     return (
       <div className="login">
         <div className="login__box">
@@ -60,8 +117,8 @@ class LoginContainer extends React.Component {
             {client => (
               <React.Fragment>
                 <form method="post" ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
-                  <Input icon="user" name="email" iconPosition="left" placeholder="Digite seu email" />
-                  <Input icon="lock" type="password" name="password" iconPosition="left" placeholder="Digite sua senha" />
+                  <Input error={this.state.emailError} icon="user" name="email" iconPosition="left" placeholder="Digite seu email" />
+                  <Input error={this.state.passwordError} icon="lock" type="password" name="password" iconPosition="left" placeholder="Digite sua senha" />
                   <Button className="login__button" type="submit" animated primary>
                     <Button.Content visible>Enviar</Button.Content>
                     <Button.Content hidden>
@@ -69,17 +126,14 @@ class LoginContainer extends React.Component {
                     </Button.Content>
                   </Button>
                 </form>
-                {this.state.loading && this.state.called && !this.state.error && <p>Carregando...</p>}
-                {this.state.called && this.state.error && <p>Erro: {this.state.error}</p>}
+                {this.status()}
               </React.Fragment>
             )}
           </ApolloConsumer>
         </div>
-      </div>
-
+      </div >
     )
   }
-
 }
 
 export default LoginContainer;

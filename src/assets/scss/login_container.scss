@@ -17,16 +17,25 @@
     align-items: center;
     height: 60vh;
     flex-direction: column;
-    width: 50vw;
-    padding: 50px;
+    width: 40vw;
+    padding: 50px; 
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 25px;
+    // transform: rotate3d(0,5,0, 35deg)
   }
   &__button {
+    margin-top: 10px !important;
     width: 100px;
   }
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex: 1;
     width: 100%;
+    .input {
+      margin: 10px 0
+    }
   }
 }
