@@ -1,7 +1,7 @@
 import React from 'react';
-import {Input, Button, Icon, Message} from "semantic-ui-react";
+import { Input, Button, Icon, Message } from "semantic-ui-react";
 import gql from 'graphql-tag'
-import {ApolloConsumer} from 'react-apollo'
+import { ApolloConsumer } from 'react-apollo'
 import Logo from '../../components/Logo'
 const login = gql`
 query Login($email: String!, $password: String!) {
@@ -20,7 +20,7 @@ query Login($email: String!, $password: String!) {
 
 
 class LoginContainer extends React.PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       loading: false,
@@ -29,30 +29,28 @@ class LoginContainer extends React.PureComponent {
     }
   }
   handleSubmit = async (e, client) => {
-    e.preventDefault()
-    this.setState({loading: false, called: false, error: null})
-    let form = new FormData(this.form)
+    if (this.form.checkValidity()) e.preventDefault()
+
+    this.setState({ loading: false, called: false, error: null })
+    const form = new FormData(this.form)
+
     try {
-      this.setState({loading: true, called: true})
-      const {data} = await client.query({
+      this.setState({ loading: true, called: true })
+
+      const { data } = await client.query({
         query: login,
-        variables: {
-          email: form.get('email'),
-          password: form.get('password')
-        }
+        variables: { email: form.get('email'), password: form.get('password') }
       })
-      this.setState({loading: false})
+
+      this.setState({ loading: false })
+
       localStorage['token'] = "Bearer " + data.login.token
       localStorage['is'] = data.login.is
-      if (data.client) {
-        localStorage['id'] = data.login.client.id
-        this.props.history.push('/client/home')
-      } else {
-        localStorage['id'] = data.login.restaurant.id
-        this.props.history.push('/restaurant/home')
-      }
+      localStorage['id'] = data.client ? data.login.client.id : data.login.restaurant.id
+
+      this.props.history.push(data.client ? '/client/home' : '/restaurant/home')
     } catch (e) {
-      this.setState({error: e})
+      this.setState({ error: e })
     }
   }
 
@@ -60,28 +58,32 @@ class LoginContainer extends React.PureComponent {
     let msg = ''
     if (error.includes('$email')) {
       msg = "Insira seu email"
-      this.setState({emailError: true})
+      this.setState({ emailError: true })
     } else {
-      this.setState({emailError: false})
+      this.setState({ emailError: false })
     }
+
     if (error.includes('$password')) {
       msg = "Insira sua senha"
-      this.setState({passwordError: true})
+      this.setState({ passwordError: true })
     } else {
-      this.setState({passwordError: false})
+      this.setState({ passwordError: false })
     }
 
     if (error.includes('inválidos')) {
       msg = error.replace('GraphQL error:', '')
     }
+    if (error.includes('Failed to fetch')) {
+      msg = "Erro na requisição, verifique sua internet."
+    }
+
     return msg
   }
   handleDismiss = () => {
-    this.setState({error: null, loading: false, called: false})
+    this.setState({ error: null, loading: false, called: false })
   }
 
   status () {
-
     if (this.state.loading && this.state.called && !this.state.error) {
       return (
         <Message icon>
@@ -105,9 +107,8 @@ class LoginContainer extends React.PureComponent {
         </Message>
       )
     }
-
-
   }
+  
   render () {
     return (
       <div className="login">
@@ -116,9 +117,25 @@ class LoginContainer extends React.PureComponent {
           <ApolloConsumer>
             {client => (
               <React.Fragment>
-                <form method="post" ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
-                  <Input error={this.state.emailError} icon="user" name="email" iconPosition="left" placeholder="Digite seu email" />
-                  <Input error={this.state.passwordError} icon="lock" type="password" name="password" iconPosition="left" placeholder="Digite sua senha" />
+                <form ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
+                  <Input
+                    error={this.state.emailError}
+                    icon="user"
+                    name="email"
+                    type="email"
+                    iconPosition="left"
+                    placeholder="Digite seu email"
+                    required
+                  />
+                  <Input
+                    error={this.state.passwordError}
+                    icon="lock"
+                    type="password"
+                    name="password"
+                    iconPosition="left"
+                    placeholder="Digite sua senha"
+                    required
+                  />
                   <Button className="login__button" type="submit" animated primary>
                     <Button.Content visible>Enviar</Button.Content>
                     <Button.Content hidden>
@@ -131,7 +148,7 @@ class LoginContainer extends React.PureComponent {
             )}
           </ApolloConsumer>
         </div>
-      </div >
+      </div>
     )
   }
 }
