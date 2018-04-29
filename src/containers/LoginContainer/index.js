@@ -25,36 +25,39 @@ class LoginContainer extends React.PureComponent {
     this.state = {
       loading: false,
       called: false,
-      error: null
+      error: null,
+      active: false,
     }
   }
   handleSubmit = async (e, client) => {
-    if (this.form.checkValidity()) e.preventDefault()
+    if (this.form.checkValidity()) {
+      e.preventDefault()
 
-    this.setState({ loading: false, called: false, error: null })
-    const form = new FormData(this.form)
+      this.setState({ loading: false, called: false, error: null })
+      const form = new FormData(this.form)
 
-    try {
-      this.setState({ loading: true, called: true })
+      try {
+        this.setState({ loading: true, called: true })
 
-      const { data } = await client.query({
-        query: login,
-        variables: { email: form.get('email'), password: form.get('password') }
-      })
+        const { data } = await client.query({
+          query: login,
+          variables: { email: form.get('email'), password: form.get('password') }
+        })
 
-      this.setState({ loading: false })
+        this.setState({ loading: false })
 
-      localStorage['token'] = "Bearer " + data.login.token
-      localStorage['is'] = data.login.is
-      localStorage['id'] = data.client ? data.login.client.id : data.login.restaurant.id
+        localStorage['token'] = "Bearer " + data.login.token
+        localStorage['is'] = data.login.is
+        localStorage['id'] = data.client ? data.login.client.id : data.login.restaurant.id
 
-      this.props.history.push(data.client ? '/client/home' : '/restaurant/home')
-    } catch (e) {
-      this.setState({ error: e })
+        this.props.history.push(data.client ? '/client/home' : '/restaurant/home')
+      } catch (e) {
+        this.setState({ error: e })
+      }
     }
   }
 
-  handleError (error) {
+  handleError(error) {
     let msg = ''
     if (error.includes('$email')) {
       msg = "Insira seu email"
@@ -83,7 +86,7 @@ class LoginContainer extends React.PureComponent {
     this.setState({ error: null, loading: false, called: false })
   }
 
-  status () {
+  status() {
     if (this.state.loading && this.state.called && !this.state.error) {
       return (
         <Message icon>
@@ -108,45 +111,93 @@ class LoginContainer extends React.PureComponent {
       )
     }
   }
-  
-  render () {
+
+  render() {
     return (
       <div className="login">
-        <div className="login__box">
-          <Logo />
-          <ApolloConsumer>
-            {client => (
-              <React.Fragment>
-                <form ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
-                  <Input
-                    error={this.state.emailError}
-                    icon="user"
-                    name="email"
-                    type="email"
-                    iconPosition="left"
-                    placeholder="Digite seu email"
-                    required
-                  />
-                  <Input
-                    error={this.state.passwordError}
-                    icon="lock"
-                    type="password"
-                    name="password"
-                    iconPosition="left"
-                    placeholder="Digite sua senha"
-                    required
-                  />
-                  <Button className="login__button" type="submit" animated primary>
-                    <Button.Content visible>Enviar</Button.Content>
-                    <Button.Content hidden>
-                      <Icon name='send' />
-                    </Button.Content>
-                  </Button>
-                </form>
-                {this.status()}
-              </React.Fragment>
-            )}
-          </ApolloConsumer>
+      <Logo />
+      <div className={`login__container ${this.state.active && 'active'}`}>
+      <div className="login__card">
+      
+            <div className="login__box front">
+              <ApolloConsumer>
+                {client => (
+                  <React.Fragment>
+                    <h2>Login</h2>
+                    <form ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
+                      <Input
+                        error={this.state.emailError}
+                        icon="user"
+                        name="email"
+                        type="email"
+                        iconPosition="left"
+                        placeholder="Digite seu email"
+                        required
+                      />
+                      <Input
+                        error={this.state.passwordError}
+                        icon="lock"
+                        type="password"
+                        name="password"
+                        iconPosition="left"
+                        placeholder="Digite sua senha"
+                        required
+                      />
+                      <Button className="login__button" type="submit" animated primary>
+                        <Button.Content visible>Enviar</Button.Content>
+                        <Button.Content hidden>
+                          <Icon name='send' />
+                        </Button.Content>
+                      </Button>
+                    </form>
+                    {this.status()}
+                    <div className={"login__register"}>
+                      <a href="javascript:void(0);" onClick={() => this.setState({active: true})}>Deseja se cadastrar?</a>
+                    </div>
+                  </React.Fragment>
+                )}
+              </ApolloConsumer>
+            </div>
+            <div className="login__box back">
+              <ApolloConsumer>
+                {client => (
+                  <React.Fragment>
+                    <h2>Cadastre-se</h2>
+                    <form ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
+                      <Input
+                        error={this.state.emailError}
+                        icon="user"
+                        name="email"
+                        type="email"
+                        iconPosition="left"
+                        placeholder="Digite seu email"
+                        required
+                      />
+                      <Input
+                        error={this.state.passwordError}
+                        icon="lock"
+                        type="password"
+                        name="password"
+                        iconPosition="left"
+                        placeholder="Digite sua senha"
+                        required
+                      />
+                      <Button className="login__button" type="submit" animated primary>
+                        <Button.Content visible>Enviar</Button.Content>
+                        <Button.Content hidden>
+                          <Icon name='send' />
+                        </Button.Content>
+                      </Button>
+                    </form>
+                    {this.status()}
+                    <div className={"login__register"}>
+                      <a href="javascript:void(0);" onClick={() => this.setState({active: false})}>Já tem conta?</a>
+                    </div>
+                  </React.Fragment>
+                )}
+              </ApolloConsumer>
+            </div>
+          </div>
         </div>
       </div>
     )
