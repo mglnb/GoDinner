@@ -22,6 +22,9 @@ query restaurant ($id: Int!) {
 		}
 		posts {
 			id
+			image_url
+			content
+			title
 			likes {
 				user { id, name }
 				liked
@@ -93,5 +96,14 @@ mutation restaurantUpdate (
 export const ALTER_PASSWORD = gql`
 	mutation($id: ID! $old_password: String! $new_password: String!) {
 		resetPassword(id:$id old_password: $old_password new_password:$new_password)
+	}
+`
+
+export const ALTER_AVATAR = gql`
+	mutation($avatar_url: String!, $id: ID!) {
+		restaurantUpdate(avatar_url: $avatar_url, id: $id) {
+			avatar_url
+			id
+		}
 	}
 `

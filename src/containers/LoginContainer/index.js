@@ -1,50 +1,38 @@
 import React from 'react';
-import { Input, Button, Icon, Message } from "semantic-ui-react";
-import gql from 'graphql-tag'
-import { ApolloConsumer } from 'react-apollo'
+import {Input, Button, Icon, Message} from "semantic-ui-react";
+import {ApolloConsumer} from 'react-apollo'
 import Logo from '../../components/Logo'
-const login = gql`
-query Login($email: String!, $password: String!) {
-  login(email: $email password: $password) {
-    token
-    is
-    client {
-      id
-    }
-    restaurant {
-      id
-    }
-  }
-}
-`
-
+import {login} from './graphql'
+import Register from './Register'
 
 class LoginContainer extends React.PureComponent {
-  constructor(props) {
+
+  constructor (props) {
     super(props)
     this.state = {
       loading: false,
       called: false,
       error: null,
       active: false,
+      step: 1,
     }
   }
-  handleSubmit = async (e, client) => {
-    if (this.form.checkValidity()) {
+  handleLoginForm = async (e, client) => {
+    if (this.loginForm.checkValidity()) {
       e.preventDefault()
-
-      this.setState({ loading: false, called: false, error: null })
-      const form = new FormData(this.form)
+      e.stopPropagation()
+      this.setState({loading: false, called: false, error: null})
+      const form = new FormData(this.loginForm)
 
       try {
-        this.setState({ loading: true, called: true })
+        this.setState({loading: true, called: true})
 
-        const { data } = await client.query({
+        const {data} = await client.query({
           query: login,
-          variables: { email: form.get('email'), password: form.get('password') }
+          variables: {email: form.get('email'), password: form.get('password')}
         })
 
-        this.setState({ loading: false })
+        this.setState({loading: false})
 
         localStorage['token'] = "Bearer " + data.login.token
         localStorage['is'] = data.login.is
@@ -52,25 +40,27 @@ class LoginContainer extends React.PureComponent {
 
         this.props.history.push(data.client ? '/client/home' : '/restaurant/home')
       } catch (e) {
-        this.setState({ error: e })
+        this.setState({error: e})
       }
     }
   }
-
-  handleError(error) {
+  handleRegisterForm (e, client) {
+    e.preventDefault()
+  }
+  handleError (error) {
     let msg = ''
     if (error.includes('$email')) {
       msg = "Insira seu email"
-      this.setState({ emailError: true })
+      this.setState({emailError: true})
     } else {
-      this.setState({ emailError: false })
+      this.setState({emailError: false})
     }
 
     if (error.includes('$password')) {
       msg = "Insira sua senha"
-      this.setState({ passwordError: true })
+      this.setState({passwordError: true})
     } else {
-      this.setState({ passwordError: false })
+      this.setState({passwordError: false})
     }
 
     if (error.includes('inválidos')) {
@@ -83,10 +73,10 @@ class LoginContainer extends React.PureComponent {
     return msg
   }
   handleDismiss = () => {
-    this.setState({ error: null, loading: false, called: false })
+    this.setState({error: null, loading: false, called: false})
   }
 
-  status() {
+  status () {
     if (this.state.loading && this.state.called && !this.state.error) {
       return (
         <Message icon>
@@ -112,37 +102,44 @@ class LoginContainer extends React.PureComponent {
     }
   }
 
-  render() {
+  addStep = () => {
+    this.setState({step: this.state.step + 1})
+  }
+  decreaseStep = () => {
+    this.setState({step: this.state.step - 1})
+  }
+  render () {
     return (
       <div className="login">
-      <Logo />
-      <div className={`login__container ${this.state.active && 'active'}`}>
-      <div className="login__card">
-      
+        <Logo />
+        <div className={`login__container ${this.state.active && 'active'}`}>
+          <div className="login__card">
             <div className="login__box front">
               <ApolloConsumer>
                 {client => (
                   <React.Fragment>
                     <h2>Login</h2>
-                    <form ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
-                      <Input
-                        error={this.state.emailError}
-                        icon="user"
-                        name="email"
-                        type="email"
-                        iconPosition="left"
-                        placeholder="Digite seu email"
-                        required
-                      />
-                      <Input
-                        error={this.state.passwordError}
-                        icon="lock"
-                        type="password"
-                        name="password"
-                        iconPosition="left"
-                        placeholder="Digite sua senha"
-                        required
-                      />
+                    <form ref={form => (this.loginForm = form)} onSubmit={(e) => this.handleLoginForm(e, client)}>
+                      <div>
+                        <Input
+                          error={this.state.emailError}
+                          icon="user"
+                          name="email"
+                          type="email"
+                          iconPosition="left"
+                          placeholder="Digite seu email"
+                          required
+                        />
+                        <Input
+                          error={this.state.passwordError}
+                          icon="lock"
+                          type="password"
+                          name="password"
+                          iconPosition="left"
+                          placeholder="Digite sua senha"
+                          required
+                        />
+                      </div>
                       <Button className="login__button" type="submit" animated primary>
                         <Button.Content visible>Enviar</Button.Content>
                         <Button.Content hidden>
@@ -152,50 +149,18 @@ class LoginContainer extends React.PureComponent {
                     </form>
                     {this.status()}
                     <div className={"login__register"}>
-                      <a href="javascript:void(0);" onClick={() => this.setState({active: true})}>Deseja se cadastrar?</a>
+                      <a href="#/" onClick={() => this.setState({active: true, error: null, loading: false})}>Deseja se cadastrar?</a>
                     </div>
                   </React.Fragment>
                 )}
               </ApolloConsumer>
             </div>
             <div className="login__box back">
-              <ApolloConsumer>
-                {client => (
-                  <React.Fragment>
-                    <h2>Cadastre-se</h2>
-                    <form ref={form => (this.form = form)} onSubmit={(e) => this.handleSubmit(e, client)}>
-                      <Input
-                        error={this.state.emailError}
-                        icon="user"
-                        name="email"
-                        type="email"
-                        iconPosition="left"
-                        placeholder="Digite seu email"
-                        required
-                      />
-                      <Input
-                        error={this.state.passwordError}
-                        icon="lock"
-                        type="password"
-                        name="password"
-                        iconPosition="left"
-                        placeholder="Digite sua senha"
-                        required
-                      />
-                      <Button className="login__button" type="submit" animated primary>
-                        <Button.Content visible>Enviar</Button.Content>
-                        <Button.Content hidden>
-                          <Icon name='send' />
-                        </Button.Content>
-                      </Button>
-                    </form>
-                    {this.status()}
-                    <div className={"login__register"}>
-                      <a href="javascript:void(0);" onClick={() => this.setState({active: false})}>Já tem conta?</a>
-                    </div>
-                  </React.Fragment>
-                )}
-              </ApolloConsumer>
+              <Register
+                flip={() => this.setState({active: false, error: null, loading: false})}
+                step={this.state.step}
+                addStep={this.addStep}
+                decreaseStep={this.decreaseStep} />
             </div>
           </div>
         </div>

@@ -2,11 +2,7 @@ import React from 'react'
 import {Card, Feed, Rating} from 'semantic-ui-react'
 
 class Stars extends React.Component {
-  componentDidMount () {
-    console.log(this.props.restaurant.stars)
-  }
   Star = () => {
-    console.log('star')
     if (this.props.restaurant.orders.length === 0) return <span>Nenhuma avaliação</span>
 
     return this.props.restaurant.orders.map((rating, index) => (

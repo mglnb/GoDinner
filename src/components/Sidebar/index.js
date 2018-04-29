@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sidebar, Menu, Icon, Image, Dropdown } from 'semantic-ui-react';
+import {NavLink} from 'react-router-dom'
 import Logo from '../Logo'
 class SidebarComponent extends React.Component {
   constructor(props) {
@@ -26,15 +27,12 @@ class SidebarComponent extends React.Component {
     this.setState({ visible: this.props.visible });
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     this.setState({ visible: nextProps.visible })
   }
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name })
-  }
   render() {
     const { activeItem } = this.state
+    console.log(activeItem, this.props.location.location.pathname.split('/')[2])
     return (
       <React.Fragment>
         {this.state.visible && (
@@ -42,8 +40,8 @@ class SidebarComponent extends React.Component {
             <Sidebar id="sidebar" as={Menu} width='thin' visible={this.state.visible} icon='labeled'>
               <Logo style={{ transform: 'scale(0.4) translateX(-250px)' }} />
               {this.state.menu.map((value, key) => (
-                <Menu.Item key={key} href={`#/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} active={activeItem === value.name} onClick={this.handleItemClick} name={value.name} >
-                  <Icon name={value.name} />
+                <Menu.Item as={NavLink} to={`/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} key={key} activeClass={'active'}>
+                  <Icon name={value.icon} />
                   {value.text}
                 </Menu.Item>
               ))}

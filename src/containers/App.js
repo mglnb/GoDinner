@@ -5,7 +5,7 @@ import {ApolloProvider} from 'react-apollo'
 import Sidebar from '../components/Sidebar'
 import routes, {RouteWithSubRoutes} from '../routes'
 
-const urlProd = "https://godinner-backend.herokuapp.com"
+// const urlProd = "https://godinner-backend.herokuapp.com"
 const urlHml = "http://localhost:8000"
 const secret = new ApolloClient({
   uri: urlHml + "/graphql/secret",

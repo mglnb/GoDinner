@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-$blue: #108ee9;
+$blue: #2d388a;
+$anotherBlue: #7db9e8;
+$blueGradient:  linear-gradient(to right, #2d388a 2%,#2d388a 5%,#2d388a 5%,#7db9e8 72%,#7db9e8 72%,#7db9e8 94%);
 * {
   font-family: Poppins, sans-serif;
 }
@@ -18,3 +20,4 @@ body {
 @import './assets/scss/restaurant_profile';
 @import './assets/scss/sidebar';
 @import './assets/scss/restaurant_posts';
+@import './assets/scss/modal';

@@ -2,6 +2,8 @@ import React from 'react'
 import {Button, Form, Card} from 'semantic-ui-react'
 import {Mutation} from 'react-apollo';
 import {UPDATE_RESTAURANT} from './graphql'
+
+
 class MyProfile extends React.PureComponent {
     constructor (props) {
         super(props)

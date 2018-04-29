@@ -5,9 +5,8 @@ import {Mutation} from 'react-apollo'
 class PasswordChange extends React.Component {
   handleSubmit (e, alterPassword) {
     e.preventDefault()
-    const form = new FormData(this.form)
-    console.log(form)
-    if (form.get('new_password') === form.get('new_password_2')) {
+    
+    if (this.new.value === this.new2.value) {
       alterPassword({
         variables: {
           id: this.props.restaurant.user.id,
@@ -49,7 +48,6 @@ class PasswordChange extends React.Component {
                 {loading && <p>Loading...</p>}
                 {called && !error && !loading && data.resetPassword && <p>Alterado com sucesso</p>}
                 {called && !error && !loading && !data.resetPassword && <p>Antiga senha inválida</p>}
-                {console.log(data)}
               </Form>
             </Card.Content>
           </Card>
