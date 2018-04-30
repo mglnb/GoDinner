@@ -4,16 +4,12 @@ import Modal from './Modal'
 import {Query} from 'react-apollo'
 import {query} from "../RestaurantProfile/graphql";
 import CustomLoader from '../Loader';
-class RestaurantPosts extends React.Component {
+class RestaurantPosts extends React.PureComponent {
   state = {
     modal: false
   }
-  openModal = () => {
-    this.setState({modal: true})
-  }
-  closeModal = () => {
-    this.setState({modal: false})
-  }
+  openModal = (index = -1) => this.setState({modal: true, post: index})
+  closeModal = () => this.setState({modal: false})
   render () {
     document.body.style.overflowY = this.state.modal ? 'hidden' : 'scroll'
     return (
@@ -27,7 +23,7 @@ class RestaurantPosts extends React.Component {
           return data && (
             <div className="restaurant_posts">
               <div className="restaurant_posts__header">
-                <Modal closeModal={this.closeModal} active={this.state.modal} />
+                {this.state.modal && <Modal closeModal={this.closeModal} posts={this.state.post > -1 ? posts[this.state.post] : null} active={this.state.modal} />}
                 <h1>Postagens</h1>
                 <Button basic circular className="restaurant_posts__addbutton" animated color='blue' onClick={this.openModal}>
                   <Button.Content hidden>Novo</Button.Content>
@@ -38,7 +34,7 @@ class RestaurantPosts extends React.Component {
               </div>
               <Card.Group itemsPerRow={3} style={{zIndex: this.state.modal ? '-1' : '1'}}>
                 {posts.map((post, index) => (
-                  <Card link href={`#/restaurant/posts/${post.id}`} key={index}>
+                  <Card link onClick={() => this.openModal(index)} href={`#/restaurant/posts/${post.id}`} key={index}>
                     <Image src={post.image_url} />
                     <Card.Content>
                       <Card.Header>{post.title}</Card.Header>
