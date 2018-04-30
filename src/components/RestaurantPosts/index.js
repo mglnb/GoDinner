@@ -8,18 +8,22 @@ class RestaurantPosts extends React.PureComponent {
   state = {
     modal: false
   }
+  componentDidMount() {
+    console.log
+  }
   openModal = (index = -1) => this.setState({modal: true, post: index})
   closeModal = () => this.setState({modal: false})
   render () {
     document.body.style.overflowY = this.state.modal ? 'hidden' : 'scroll'
     return (
-      <Query query={query} variables={{id: localStorage['id']}}>
+      <Query query={query} fetchPolicy={'cache-and-network'} variables={{id: localStorage['id']}}>
         {({loading, error, data}) => {
           if (loading)
             return <CustomLoader size='huge' />
           if (error)
             return `${error}`
           const posts = data.restaurant[0].posts
+          const name = data.restaurant[0].name
           return data && (
             <div className="restaurant_posts">
               <div className="restaurant_posts__header">
@@ -32,18 +36,18 @@ class RestaurantPosts extends React.PureComponent {
                   </Button.Content>
                 </Button>
               </div>
-              <Card.Group itemsPerRow={3} style={{zIndex: this.state.modal ? '-1' : '1'}}>
+              <Card.Group itemsPerRow={3} style={{zIndex: this.state.modal ? '-1' : '1', width: "100%"}}>
                 {posts.map((post, index) => (
                   <Card link onClick={() => this.openModal(index)} href={`#/restaurant/posts/${post.id}`} key={index}>
                     <Image src={post.image_url} />
                     <Card.Content>
                       <Card.Header>{post.title}</Card.Header>
-                      <Card.Meta>Miguel Boanova</Card.Meta>
+                      <Card.Meta>{name}</Card.Meta>
                       <Card.Description>{post.content.replace(/(<([^>]+)>)/ig, '')}</Card.Description>
                     </Card.Content>
                     <Card.Content extra>
                       <Icon name='user' />
-                      10 pessoas gostaram
+                      {posts[index].likes ? posts[index].likes.length == 1 ? "1 pessoa curtiu" : posts[index].likes.length + ' pessoas curtiram' : 'Ainda não teve curtidas'} 
                 </Card.Content>
                   </Card>
                 ))}

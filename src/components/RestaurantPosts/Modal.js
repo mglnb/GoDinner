@@ -3,6 +3,7 @@ import RichText from 'react-rte'
 import {Button, Icon} from 'semantic-ui-react'
 import {Mutation} from 'react-apollo'
 import {ADD_POST, REMOVE_POST, UPDATE_POST} from './graphql'
+import {query} from '../RestaurantProfile/graphql'
 import firebase from '../../firebase'
 const storageRef = firebase.storage().ref()
 const postsRef = storageRef.child('posts');
@@ -78,6 +79,7 @@ class Modal extends React.Component {
   handleUpdate = (e, updatePost) => {
     this.setState({mutation: UPDATE_POST})
     updatePost({
+
       variables: {
         id: this.props.posts.id,
         title: this.state.title,
@@ -111,7 +113,7 @@ class Modal extends React.Component {
             <div className="modal__footer">
               {this.props.posts ? (
                 <React.Fragment>
-                  <Mutation mutation={REMOVE_POST}>
+                  <Mutation mutation={REMOVE_POST}  refetchQueries={[{query: query, variables: {id: localStorage['id']}}]}>
                     {(mutation, {loading, error, called, data}) => (
                       <Button labelPosition={'left'} icon onClick={(e) => this.handleDelete(e, mutation)}>
                         {!called && <Icon name='x' />}
@@ -123,7 +125,7 @@ class Modal extends React.Component {
                       </Button>
                     )}
                   </Mutation>
-                  <Mutation mutation={UPDATE_POST}>
+                  <Mutation mutation={UPDATE_POST} refetchQueries={[{query: query, variables: {id: localStorage['id']}}]}>
                     {(mutation, {loading, error, called, data}) => (
                       <Button labelPosition={'right'} icon onClick={(e) => this.handleUpdate(e, mutation)}>
                         {!called && <Icon name='send' />}
@@ -136,7 +138,7 @@ class Modal extends React.Component {
                   </Mutation>
                 </React.Fragment>
               ) : (
-                  <Mutation mutation={ADD_POST}>
+                  <Mutation mutation={ADD_POST}  refetchQueries={[{query: query, variables: {id: localStorage['id']}}]}>
                     {(mutation, {loading, error, called, data}) => (
                       <Button labelPosition={'right'} icon onClick={(e) => this.handleSubmit(e, mutation)}>
                         {!called && <Icon name='send' />}

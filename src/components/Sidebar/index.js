@@ -9,11 +9,13 @@ class SidebarComponent extends React.Component {
       visible: this.props.visible,
       activeItem: '',
       menu: [
-        { name: 'computer', text: 'Dashboard' },
-        { name: 'food', text: 'Meu Perfil' },
-        { name: 'feed', text: 'Posts' },
-        { name: 'address book outline', text: 'Reservas' },
-        { name: 'shop', text: 'Pedidos' }
+        { name: 'dashboard', text: 'Dashboard', href: 'dashboard' },
+        { name: 'food', text: 'Meu Perfil', href: 'perfil' },
+        { name: 'feed', text: 'Posts', href: 'posts' },
+        { name: 'address book outline', text: 'Reservas', href: 'reservas' },
+        { name: 'shop', text: 'Pedidos', href: 'pedidos' },
+        { name: 'book', text: 'Cardápios', href: 'cardapios' },
+        { name: 'grid layout', text: 'Mesas', href: 'mesas' },
       ],
       dropdown: [
         {key: 'user',  text: 'Perfil', href: "#/restaurant/meuperfil", icon: 'food'},
@@ -32,7 +34,6 @@ class SidebarComponent extends React.Component {
 
   render() {
     const { activeItem } = this.state
-    console.log(activeItem, this.props.location.location.pathname.split('/')[2])
     return (
       <React.Fragment>
         {this.state.visible && (
@@ -40,14 +41,14 @@ class SidebarComponent extends React.Component {
             <Sidebar id="sidebar" as={Menu} width='thin' visible={this.state.visible} icon='labeled'>
               <Logo style={{ transform: 'scale(0.4) translateX(-250px)' }} />
               {this.state.menu.map((value, key) => (
-                <Menu.Item as={NavLink} to={`/restaurant/${value.text.toLocaleLowerCase().replace(/ /g, '')}`} key={key} activeClass={'active'}>
-                  <Icon name={value.icon} />
+                <Menu.Item as={NavLink} to={`/restaurant/${value.href}`} key={key} activeClass={'active'}>
+                  <Icon name={value.name} />
                   {value.text}
                 </Menu.Item>
               ))}
             </Sidebar>
             <div className="navbar">
-              <Dropdown trigger={<span><Image avatar circular src="https://lorempixel.com/70/70/people" /></span>} options={this.state.dropdown} pointing={'top right'} />
+              <Dropdown trigger={<span><Image avatar circular src={`${localStorage['avatar_url']}`} /></span>} options={this.state.dropdown} pointing={'top right'} />
             </div>
           </React.Fragment>
         )}

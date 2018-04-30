@@ -1,6 +1,7 @@
-import RestaurantContainer from '../containers/RestaurantContainer/index.js'
+import RestaurantContainer from '../containers/RestaurantContainer'
 import RestaurantProfile from '../components/RestaurantProfile'
 import RestaurantPosts from '../components/RestaurantPosts'
+import RestaurantMenu from '../components/RestaurantMenu'
 export default [
   // {
   //   exact: true,
@@ -14,11 +15,11 @@ export default [
     component: RestaurantContainer,
   },
   {
-    path: '/restaurant/home',
+    path: '/restaurant/dashboard',
     component: RestaurantContainer
   },
   {
-    path: '/restaurant/meuperfil',
+    path: '/restaurant/perfil',
     component: RestaurantProfile
   },
   {
@@ -31,6 +32,14 @@ export default [
   },
   {
     path: '/restaurant/pedidos',
+    component: RestaurantContainer
+  },
+  {
+    path: '/restaurant/cardapios',
+    component: RestaurantMenu
+  },
+  {
+    path: '/restaurant/mesas',
     component: RestaurantContainer
   },
 
