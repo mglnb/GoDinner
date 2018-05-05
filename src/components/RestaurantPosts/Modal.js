@@ -102,7 +102,7 @@ class Modal extends React.Component {
         <div className={`modal${this.props.active ? ' active' : ''}`}>
           <div className="modal__container">
             <div className="modal__header">
-              <span className="modal__close" onClick={this.closeModal}></span>
+              <span className="close" onClick={this.closeModal}></span>
               <img alt={"Imagem do post"} onClick={this.imgClick} ref={img => this.postImg = img} className="modal__post-img" src={this.state.image_url} />
               <input onChange={this.handleFileChange} ref={file => this.postFile = file} type="file" style={{visibility: 'hidden', height: 0, width: 0}} />
               <input name={'title'} value={this.state.title} onChange={this.handleChange} type="text" onFocus={this.blurTitle} placeholder={'Digite seu título aqui'} />

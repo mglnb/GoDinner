@@ -16,7 +16,6 @@
     padding-bottom: 20px;
     height: 75px;
   }
-
   &__modal {
     position: fixed;
     width: 100vw;
@@ -31,7 +30,7 @@
     align-items: center;
     justify-content: center;
     &.active {
-      background: rgba(0,0,0,.4);
+      background: rgba(0, 0, 0, .4);
       opacity: 1;
       visibility: visible;
     }
@@ -41,12 +40,26 @@
     }
     &__header {
       font-size: 26px;
-      padding: 0 15px;
+      padding: 0 0 20px;
+      position: relative;
+      .close {
+        top: -15px;
+        right: -35px;
+        &:before,
+        &:after {
+          height: 20px;
+          background: black ;
+        }
+      }
     }
     &__content {
       display: flex;
       flex-direction: column;
     }
-    &__footer {}
+    &__footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }

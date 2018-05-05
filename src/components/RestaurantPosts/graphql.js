@@ -5,6 +5,9 @@ mutation($id: ID!, $title: String!, $content: String!, $status: String!, $image_
   postCreate(content: $content, status: $status, image_url: $image_url, title: $title, restaurant_id: $id) {
     id
     title
+    content
+    image_url
+    status
   }
 }
 `
@@ -13,6 +16,9 @@ mutation($id: ID!, $title: String, $content: String, $status: String, $image_url
   postUpdate(content: $content, status: $status, image_url: $image_url, title: $title, id: $id) {
     id
     title
+    content
+    image_url
+    status
   }
 }
 `

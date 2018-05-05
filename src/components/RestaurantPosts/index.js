@@ -8,9 +8,6 @@ class RestaurantPosts extends React.PureComponent {
   state = {
     modal: false
   }
-  componentDidMount() {
-    console.log
-  }
   openModal = (index = -1) => this.setState({modal: true, post: index})
   closeModal = () => this.setState({modal: false})
   render () {
