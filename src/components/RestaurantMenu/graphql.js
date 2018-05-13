@@ -8,3 +8,14 @@ export const ADD_MENU = gql`
     }
   } 
 `
+
+export const ADD_MENU_OPTION = gql`
+mutation($restaurant_menu_id: ID!, $name: String!, $price: Float!, $ingredients: String!) {
+  menuOptionsCreate(restaurant_menu_id: $restaurant_menu_id, name: $name, price: $price, ingredients: $ingredients) {
+    id
+    name
+    price
+    ingredients
+  }
+} 
+`

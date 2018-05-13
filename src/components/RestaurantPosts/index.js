@@ -44,8 +44,8 @@ class RestaurantPosts extends React.PureComponent {
                     </Card.Content>
                     <Card.Content extra>
                       <Icon name='user' />
-                      {posts[index].likes ? posts[index].likes.length == 1 ? "1 pessoa curtiu" : posts[index].likes.length + ' pessoas curtiram' : 'Ainda não teve curtidas'} 
-                </Card.Content>
+                      {posts[index].likes.length > 0 ? posts[index].likes.length === 1 ? "1 pessoa curtiu" : posts[index].likes.length + ' pessoas curtiram' : 'Ainda não teve curtidas'}
+                    </Card.Content>
                   </Card>
                 ))}
               </Card.Group>
