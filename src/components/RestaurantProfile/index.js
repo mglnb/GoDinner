@@ -1,43 +1,44 @@
 import React from 'react';
-import {Query, ApolloConsumer} from 'react-apollo'
-import {query} from './graphql'
+import { Query, ApolloConsumer } from 'react-apollo'
+import { query } from './graphql'
 
 import Loader from '../Loader';
 import MyProfile from './MyProfile'
 import PasswordChange from './PasswordChange'
 import Stars from './Stars'
-import {Card} from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import firebase from '../../firebase'
-import {ALTER_AVATAR} from "./graphql";
+import { ALTER_AVATAR } from "./graphql";
 const storageRef = firebase.storage().ref()
 const imagesRef = storageRef.child('images');
 
 
 class RestaurantProfile extends React.Component {
-  callFileUpload = () => {
-    this.inputFile.click()
-  }
+
   handleFileChange = async (e, client) => {
     const file = e.target.files[0]
     await imagesRef.child(file.name).put(file)
-    
+
     const fileReader = new FileReader()
     fileReader.onload = () => {
       this.avatar.src = fileReader.result
     }
     fileReader.readAsDataURL(file)
-    
+
     const url = await imagesRef.child(file.name).getDownloadURL()
     client.mutate({
       mutation: ALTER_AVATAR,
-      variables: {avatar_url: url, id: localStorage['id']}
+      variables: { avatar_url: url, id: localStorage['id'] }
     })
 
   }
-  render () {
+  callFileUpload = () => {
+    this.inputFile.click()
+  }
+  render() {
     return (
-      <Query query={query} variables={{id: localStorage['id']}}>
-        {({loading, error, data}) => {
+      <Query query={query} variables={{ id: localStorage['id'] }}>
+        {({ loading, error, data }) => {
           if (loading)
             return <Loader size='huge' />
           if (error)
@@ -52,7 +53,7 @@ class RestaurantProfile extends React.Component {
                   {client => (
                     <div className='restaurant_profile__header'>
                       <img ref={img => this.avatar = img} className='restaurant_profile__img' src={restaurant.avatar_url} alt='Avatar' onClick={this.callFileUpload} />
-                      <input onChange={(e) => this.handleFileChange(e, client)} type="file" ref={file => this.inputFile = file} style={{visibility: 'hidden', width: 0, height: 0}} />
+                      <input onChange={(e) => this.handleFileChange(e, client)} type="file" ref={file => this.inputFile = file} style={{ visibility: 'hidden', width: 0, height: 0 }} />
                       <h1 className='restaurant_profile__name'>{restaurant.name}</h1>
                       <p className='restaurant_profile__subname'>{restaurant.user.email}</p>
                     </div>

@@ -19,3 +19,11 @@ mutation($restaurant_menu_id: ID!, $name: String!, $price: Float!, $ingredients:
   }
 } 
 `
+
+export const REMOVE_MENU_OPTION = gql`
+  mutation($id: ID!) {
+    menuOptionsDelete(id: $id)
+  }
+`
+
+

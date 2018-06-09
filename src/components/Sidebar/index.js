@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sidebar, Menu, Icon, Image, Dropdown } from 'semantic-ui-react';
 import {NavLink} from 'react-router-dom'
-import Logo from '../Logo'
+import Logo from '../Logo' 
 class SidebarComponent extends React.Component {
   constructor(props) {
     super(props);

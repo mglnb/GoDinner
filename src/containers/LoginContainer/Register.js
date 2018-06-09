@@ -1,7 +1,7 @@
 import React from 'react'
-import {ApolloConsumer} from 'react-apollo';
-import {CSSTransition} from 'react-transition-group'
-import {Input, Button, Icon} from 'semantic-ui-react';
+import { ApolloConsumer } from 'react-apollo';
+import { CSSTransition } from 'react-transition-group'
+import { Input, Button, Icon } from 'semantic-ui-react';
 import RegisterSteps from './RegisterSteps'
 // import googleMapsClient from '@google/maps'
 import _ from 'lodash'
@@ -10,7 +10,7 @@ import MaskedInput from 'react-maskedinput'
 //   key: 'AIzaSyCkUXgyaiuJ-8BERszscr5qwSOWHZI8Hq4',
 //   Promise: Promise
 // })
-import {register} from './graphql'
+import { register } from './graphql'
 
 
 class Register extends React.PureComponent {
@@ -29,31 +29,15 @@ class Register extends React.PureComponent {
   }
   handleRegisterForm = async (e, client) => {
     if (this.registerForm.checkValidity()) e.preventDefault()
-    this.setState({address: `${this.state.address}, ${this.state.city}, ${this.state.uf.toUpperCase()}`})
-    const {data} = await client.mutate({
+    this.setState({ address: `${this.state.address}, ${this.state.city}, ${this.state.uf.toUpperCase()}` })
+    const { data } = await client.mutate({
       mutation: register,
-      variables: {...this.state}
+      variables: { ...this.state }
     })
 
   }
-  componentDidMount () {
-
-  }
-  // handleKeyAddress = _.debounce(() => {
-  //   gmaps.placesAutoComplete({
-  //     input: this.state.address,
-  //     language: 'pt-br',
-  //     location: [-31.7690101, -52.33474160000003],
-  //     radius: 500000,
-  //     components: {country: 'br'}
-  //   }).asPromise()
-  //     .then(response => {
-  //       this.setState({addressOptions: response.json.predictions.map(value => ({key: value.description, value: value.description, text: value.description}))})
-  //     })
-  // }, 500)
-
   handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value })
   }
   handleCNPJChange = _.debounce(() => {
 
@@ -77,15 +61,15 @@ class Register extends React.PureComponent {
         })
     }
   }, 700)
-  addStep () {
+  addStep() {
     if (this.registerForm.checkValidity()) {
       this.props.addStep()
     }
   }
-  decreaseStep () {
+  decreaseStep() {
     this.props.decreaseStep()
   }
-  render () {
+  render() {
     return (
       <ApolloConsumer>
         {client => (

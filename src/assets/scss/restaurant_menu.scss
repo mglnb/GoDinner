@@ -29,6 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
     &.active {
       background: rgba(0, 0, 0, .4);
       opacity: 1;
@@ -39,9 +40,11 @@
       padding: 30px 50px;
     }
     &__header {
-      font-size: 26px;
+      font-size: 20px;
       padding: 0 0 20px;
       position: relative;
+      border-bottom: 1px solid rgba(0,0,0,.3);
+      margin-bottom: 20px;
       .close {
         top: -15px;
         right: -35px;
@@ -95,9 +98,14 @@
       }
     }
     &__content {
-      display: flex;
-      flex-direction: column;
-      max-height: 30vh;
+      form {
+        display: flex;
+        flex-direction: column;
+        max-height: 30vh;
+        .input {
+          margin: 10px 0;
+        }
+      }
     }
     &__footer {
       margin-top: 20px;
@@ -106,3 +114,4 @@
     }
   }
 }
+
