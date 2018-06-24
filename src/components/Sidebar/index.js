@@ -41,7 +41,7 @@ class SidebarComponent extends React.Component {
             <Sidebar id="sidebar" as={Menu} width='thin' visible={this.state.visible} icon='labeled'>
               <Logo style={{ transform: 'scale(0.4) translateX(-250px)' }} />
               {this.state.menu.map((value, key) => (
-                <Menu.Item as={NavLink} to={`/restaurant/${value.href}`} key={key} activeClass={'active'}>
+                <Menu.Item as={NavLink} to={`/restaurant/${value.href}`} key={key}>
                   <Icon name={value.name} />
                   {value.text}
                 </Menu.Item>

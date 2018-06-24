@@ -1,0 +1,25 @@
+.content {
+  &_container {
+    width: calc(100vw - 270px);
+    margin: 0 50px;
+    display: flex;
+    align-items: flex-start;
+    padding: 50px;
+    flex-direction: column;
+  }
+  &_header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+  }
+  &_body {
+      width: 100%;
+      margin-top: 20px;
+  }
+}
+.input_edit_table {
+    padding: 10px;
+    &[readonly] {
+        border: none;
+    }
+}

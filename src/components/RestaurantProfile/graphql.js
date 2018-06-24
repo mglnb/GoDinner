@@ -9,6 +9,10 @@ query restaurant ($id: Int!) {
 			menu_options {
 				id
 				name
+				price
+			}
+			restaurant_tables {
+				id
 			}
 			client {
 				name

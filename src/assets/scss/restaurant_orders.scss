@@ -1,0 +1,28 @@
+.orders.modal {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.3);
+    &.active{
+        opacity: 1;
+    }
+    .modal__container {
+        height: 50vh;
+        min-height: auto;
+    }
+    .modal__header {
+        padding: 25px 20px;
+        border-bottom: 1px solid #eee;
+        span:not(.close) {
+            font-size: 26px;
+        }
+    }
+    .Select-control input {
+        border: none ;
+        padding-left: 0;
+    }
+    .close {
+        &:before, &:after {
+            background: black;
+        }
+    }
+}

@@ -2,6 +2,10 @@ import RestaurantContainer from '../containers/RestaurantContainer'
 import RestaurantProfile from '../components/RestaurantProfile'
 import RestaurantPosts from '../components/RestaurantPosts'
 import RestaurantMenu from '../components/RestaurantMenu'
+import RestaurantTables from '../components/RestaurantTables'
+import RestaurantOrders from '../components/RestaurantOrders'
+import RestaurantBookings from '../components/RestaurantBookings'
+import RestaurantDashboard from '../components/RestaurantDashboard'
 export default [
   // {
   //   exact: true,
@@ -16,7 +20,7 @@ export default [
   },
   {
     path: '/restaurant/dashboard',
-    component: RestaurantContainer
+    component: RestaurantDashboard
   },
   {
     path: '/restaurant/perfil',
@@ -28,11 +32,11 @@ export default [
   },
   {
     path: '/restaurant/reservas',
-    component: RestaurantContainer
+    component: RestaurantBookings
   },
   {
     path: '/restaurant/pedidos',
-    component: RestaurantContainer
+    component: RestaurantOrders
   },
   {
     path: '/restaurant/cardapios',
@@ -40,7 +44,7 @@ export default [
   },
   {
     path: '/restaurant/mesas',
-    component: RestaurantContainer
+    component: RestaurantTables
   },
 
   {

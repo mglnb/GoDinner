@@ -13,7 +13,7 @@ class RestaurantPosts extends React.PureComponent {
   render () {
     document.body.style.overflowY = this.state.modal ? 'hidden' : 'scroll'
     return (
-      <Query query={query} fetchPolicy={'cache-and-network'} variables={{id: localStorage['id']}}>
+      <Query query={query} variables={{id: localStorage['id']}}>
         {({loading, error, data}) => {
           if (loading)
             return <CustomLoader size='huge' />
