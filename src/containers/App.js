@@ -7,7 +7,10 @@ import routes, { RouteWithSubRoutes } from "../routes";
 import "react-select/dist/react-select.css";
 
 // const urlProd = "https://godinner-backend.herokuapp.com"
-const urlHml = "http://localhost:8000";
+const urlHml =
+  window.location.protocol === "https:"
+    ? "https://godinner-backend.herokuapp.com"
+    : "http://localhost:8000";
 const secret = new ApolloClient({
   uri: urlHml + "/graphql/secret",
   request: async operation => {

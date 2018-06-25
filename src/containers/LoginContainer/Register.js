@@ -42,7 +42,7 @@ class Register extends React.PureComponent {
   handleCNPJChange = _.debounce(() => {
 
     if (this.state.cnpj.length > 0) {
-      fetch(`https://www.receitaws.com.br/v1/cnpj/${this.state.cnpj.replace(/[^0-9]/g, "")}`)
+      fetch(`https://www.receitaws.com.br/v1/cnpj/${this.state.cnpj.replace(/[^0-9]/g, "")}`, {mode: 'no-cors'})
         .then(response => response.json())
         .then(json => {
           if (json.status !== "OK") {
