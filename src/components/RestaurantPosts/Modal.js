@@ -17,7 +17,7 @@ class Modal extends React.Component {
     mutation: ADD_POST
   }
   componentWillMount () {
-    this.socket = io("http://godinner-socket-miguelc2.c9users.io/");
+    this.socket = io("//godinner-socket-miguelc2.c9users.io/");
     window.socket = this.socket
     if (this.props.posts) {
       this.setState({...this.props.posts, richtext: RichText.createValueFromString(this.props.posts.content, 'html')})
