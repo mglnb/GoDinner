@@ -8,17 +8,17 @@ class ClientFeed extends React.Component {
       posts: []
     }
     componentWillMount() {
-      fetch('https://godinner-back4-miguelc2.c9users.io:8081/app/feed')
+      fetch('//godinner-backend.herokuapp.com/#/app/feed')
         .then(res => res.json())
         .then(json => this.setState({posts: json.reverse()}))
-        const socket = io("http://godinner-socket-miguelc2.c9users.io/");
+        const socket = io("//godinner-socket-miguelc2.c9users.io/");
         window.socket = socket
         socket.on('init', socket => {
           console.log(socket)
         })
         socket.on('postAddedClient', () => {
           console.log('postAddedClient')
-          fetch('https://godinner-back4-miguelc2.c9users.io:8081/app/feed')
+          fetch('//godinner-backend.herokuapp.com/#/app/feed')
             .then(res => res.json())
             .then(json => this.setState({posts: json.reverse()}))
         })
