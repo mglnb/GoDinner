@@ -8,7 +8,7 @@ class ClientFeed extends React.Component {
       posts: []
     }
     componentWillMount() {
-      fetch('//godinner-backend.herokuapp.com/#/app/feed')
+      fetch('//godinner-backend.herokuapp.com/app/feed')
         .then(res => res.json())
         .then(json => this.setState({posts: json.reverse()}))
         const socket = io("//godinner-socket-miguelc2.c9users.io/");
@@ -18,7 +18,7 @@ class ClientFeed extends React.Component {
         })
         socket.on('postAddedClient', () => {
           console.log('postAddedClient')
-          fetch('//godinner-backend.herokuapp.com/#/app/feed')
+          fetch('//godinner-backend.herokuapp.com/app/feed')
             .then(res => res.json())
             .then(json => this.setState({posts: json.reverse()}))
         })
