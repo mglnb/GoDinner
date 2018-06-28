@@ -1,6 +1,6 @@
 import React from 'react'
 const SvgComponent = props => (
-  <svg width={376} height={79} {...props} >
+  <svg width={376} height={79} {...props} className="logo" >
     <defs>
       <linearGradient id="a">
         <stop offset={0} stopColor="#2d388a" />

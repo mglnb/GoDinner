@@ -47,9 +47,6 @@ export default [
     component: RestaurantTables
   },
 
-  {
-    path: '/client/'
-  }
 ]
 
 

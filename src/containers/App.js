@@ -6,11 +6,11 @@ import Sidebar from "../components/Sidebar";
 import routes, { RouteWithSubRoutes } from "../routes";
 import "react-select/dist/react-select.css";
 
-// const urlProd = "https://godinner-backend.herokuapp.com"
-const urlHml =
-  window.location.protocol === "https:"
-    ? "https://godinner-backend.herokuapp.com"
-    : "http://localhost:8000";
+const urlHml = "https://godinner-backend.herokuapp.com"
+// const urlHml =
+//   window.location.protocol === "https:"
+//     ? "https://godinner-backend.herokuapp.com"
+//     : "http://localhost:8000";
 const secret = new ApolloClient({
   uri: urlHml + "/graphql/secret",
   request: async operation => {
@@ -43,7 +43,7 @@ class App extends Component {
           render={location => (
             <Sidebar
               location={location}
-              visible={location.location.pathname === "/" ? false : visible}
+              visible={location.location.pathname.includes('restaurant') ? visible : false }
             >
               <ApolloProvider client={secret}>
                 <Switch>
