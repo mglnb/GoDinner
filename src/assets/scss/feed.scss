@@ -1,0 +1,22 @@
+.feed {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    &__wrapper {
+        margin-top: 25px;
+        width: 70vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .logo {
+        margin-bottom: 50px;
+    }
+    .ui.feed>.event {
+        margin-bottom: 150px;
+    }
+}
+
+.ui.feed>.event>.content .extra.images img {
+    width: 40em
+}
