@@ -44,7 +44,7 @@ class RestaurantProfile extends React.Component {
           if (error)
             return `${error}`
           const restaurant = data.restaurant[0]
-          localStorage['avatar_url'] = restaurant.avatar_url
+          localStorage['avatar_url'] = restaurant.avatar_url || 'http://www.rathjenpt.com/wp-content/uploads/2016/09/default-user-img.jpg'
           return data && (
             <React.Fragment>
               <h1 className="restaurant_profile__h1">Meu Perfil</h1>
@@ -52,7 +52,7 @@ class RestaurantProfile extends React.Component {
                 <ApolloConsumer>
                   {client => (
                     <div className='restaurant_profile__header'>
-                      <img ref={img => this.avatar = img} className='restaurant_profile__img' src={restaurant.avatar_url} alt='Avatar' onClick={this.callFileUpload} />
+                      <img ref={img => this.avatar = img} className='restaurant_profile__img' src={restaurant.avatar_url  || 'http://www.rathjenpt.com/wp-content/uploads/2016/09/default-user-img.jpg'} alt='Avatar' onClick={this.callFileUpload} />
                       <input onChange={(e) => this.handleFileChange(e, client)} type="file" ref={file => this.inputFile = file} style={{ visibility: 'hidden', width: 0, height: 0 }} />
                       <h1 className='restaurant_profile__name'>{restaurant.name}</h1>
                       <p className='restaurant_profile__subname'>{restaurant.user.email}</p>

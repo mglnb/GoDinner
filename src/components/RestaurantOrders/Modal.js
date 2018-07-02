@@ -74,7 +74,7 @@ class Modal extends React.Component {
                       />
                     </Form.Field>
                     <Form.Field>
-                      <label>Mesa:</label>
+                      <label>Opções:</label>
                       <Select
                         multi
                         value={this.state.options}
