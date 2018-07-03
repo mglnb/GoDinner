@@ -6,6 +6,7 @@ import RegisterSteps from './RegisterSteps'
 // import googleMapsClient from '@google/maps'
 import _ from 'lodash'
 import MaskedInput from 'react-maskedinput'
+import jsonp from 'jsonp'
 // const gmaps = googleMapsClient.createClient({
 //   key: 'AIzaSyCkUXgyaiuJ-8BERszscr5qwSOWHZI8Hq4',
 //   Promise: Promise
@@ -82,23 +83,26 @@ class Register extends React.PureComponent {
   }
   handleCNPJChange = _.debounce(() => {
     if (this.state.cnpj.length > 0) {
-      // fetch(`https://www.receitaws.com.br/v1/cnpj/${this.state.cnpj.replace(/[^0-9]/g, "")}`, {mode: 'no-cors'})
-      //   .then(response => response.json())
-      //   .then(json => {
-      //     if (json.status !== "OK") {
-      //       return
-      //     }
-      //     this.setState({
-      //       name: json.nome,
-      //       address: json.logradouro,
-      //       number: json.numero,
-      //       city: json.municipio,
-      //       uf: json.uf,
-      //       telphone: json.telefone,
-      //       subname: json.atividade_principal[0].text || '',
-      //       neighborhood: json.bairro,
-      //     })
-      //   })
+      jsonp(
+        `https://www.receitaws.com.br/v1/cnpj/${cnpj}`,
+        null,
+        (err, json) => {
+          if (err) return;
+          if (json.status !== "OK") {
+            return;
+          }
+          this.setState({
+            name: json.nome,
+            address: json.logradouro,
+            number: json.numero,
+            city: json.municipio,
+            uf: json.uf,
+            telphone: json.telefone,
+            subname: json.atividade_principal[0].text || "",
+            neighborhood: json.bairro
+          });
+        }
+      );
     }
   }, 700)
   addStep() {
