@@ -7,12 +7,12 @@
 
 O sistema administrativo está hospedado em https://godinner-backend.herokuapp.com/ e as credenciais são
 
-**Usuário**: admin@godinner.com  
-**Senha**: 12345678
+**Usuário**: mgl.deadly@gmail.com  
+**Senha**: 91533266
     
 ### Administrador do Restaurante
 
 O sistema administrativo do restaurante está hospedado em https://godinner-frontend.herokuapp.com/ e as credenciais são
 
-**Usuário**: restaurante@godinner.com  
-**Senha**: 12345678
+**Usuário**: mgl.deadly@gmail.com 
+**Senha**: 91533266
