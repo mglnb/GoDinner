@@ -122,7 +122,7 @@ class RestaurantOrders extends React.Component {
                                 size="medium"
                                 color="red"
                               >
-                                Remover
+                                Fechar Pedido
                               </Button>
                             )}
                           </Mutation>

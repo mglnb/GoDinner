@@ -1,7 +1,7 @@
 import React from 'react'
 import { ApolloConsumer } from 'react-apollo';
 import { CSSTransition } from 'react-transition-group'
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { Input, Button, Icon, Message } from 'semantic-ui-react';
 import RegisterSteps from './RegisterSteps'
 // import googleMapsClient from '@google/maps'
 import _ from 'lodash'
@@ -26,39 +26,79 @@ class Register extends React.PureComponent {
     telphone: '',
     subname: '',
     neighborhood: '',
+    called: false,
+    error: false,
+    loading: false
+  }
+  status () {
+    if (this.state.loading && this.state.called && !this.state.error) {
+      return (
+        <Message icon>
+          <Icon name='circle notched' loading />
+          <Message.Content>
+            <Message.Header>Aguarde um pouquinho</Message.Header>
+            Estamos verificando suas credenciais
+         </Message.Content>
+        </Message>
+      )
+    }
+    if (this.state.called && this.state.error) {
+      return (
+        <Message  icon negative onDismiss={this.handleDismiss}>
+          <Icon name='x' />
+          <Message.Content>
+            <Message.Header>Ops! ocorreu um erro </Message.Header>
+            {this.state.error.message}
+          </Message.Content>
+        </Message>
+      )
+    }
+    if(this.state.called && !this.state.error && !this.state.loading) {
+      return (
+        <Message icon positive onDismiss={this.handleDismiss}>
+          <Icon color="green" name='check' />
+          <Message.Content>
+            <Message.Header>Usuário cadastrado!</Message.Header>
+          </Message.Content>
+        </Message>
+      )
+    }
   }
   handleRegisterForm = async (e, client) => {
     if (this.registerForm.checkValidity()) e.preventDefault()
-    this.setState({ address: `${this.state.address}, ${this.state.city}, ${this.state.uf.toUpperCase()}` })
+    this.setState({ address: `${this.state.address}, ${this.state.city}, ${this.state.uf.toUpperCase()}`, loading: true, called: true, error: false})
     const { data } = await client.mutate({
       mutation: register,
       variables: { ...this.state }
     })
-
+    if(data.name) {
+      this.setState({loading: false, called: true, error: false})
+    } else {
+      this.setState({loading: false, called: true, error: false})
+    }
   }
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
   handleCNPJChange = _.debounce(() => {
-
     if (this.state.cnpj.length > 0) {
-      fetch(`https://www.receitaws.com.br/v1/cnpj/${this.state.cnpj.replace(/[^0-9]/g, "")}`, {mode: 'no-cors'})
-        .then(response => response.json())
-        .then(json => {
-          if (json.status !== "OK") {
-            return
-          }
-          this.setState({
-            name: json.nome,
-            address: json.logradouro,
-            number: json.numero,
-            city: json.municipio,
-            uf: json.uf,
-            telphone: json.telefone,
-            subname: json.atividade_principal[0].text || '',
-            neighborhood: json.bairro,
-          })
-        })
+      // fetch(`https://www.receitaws.com.br/v1/cnpj/${this.state.cnpj.replace(/[^0-9]/g, "")}`, {mode: 'no-cors'})
+      //   .then(response => response.json())
+      //   .then(json => {
+      //     if (json.status !== "OK") {
+      //       return
+      //     }
+      //     this.setState({
+      //       name: json.nome,
+      //       address: json.logradouro,
+      //       number: json.numero,
+      //       city: json.municipio,
+      //       uf: json.uf,
+      //       telphone: json.telefone,
+      //       subname: json.atividade_principal[0].text || '',
+      //       neighborhood: json.bairro,
+      //     })
+      //   })
     }
   }, 700)
   addStep() {
@@ -227,6 +267,7 @@ class Register extends React.PureComponent {
                 )}
               </div>
             </form>
+            {this.status()}
             <div className={"login__register"}>
               <a href="#/" onClick={() => this.props.flip()}>Já possui uma conta?</a>
             </div>
