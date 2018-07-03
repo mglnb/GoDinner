@@ -5,7 +5,7 @@ import {Mutation} from 'react-apollo'
 import {ADD_POST, REMOVE_POST, UPDATE_POST} from './graphql'
 import {query} from '../RestaurantProfile/graphql'
 import firebase from '../../firebase'
-import io from 'socket.io-client'
+
 const storageRef = firebase.storage().ref()
 const postsRef = storageRef.child('posts');
 class Modal extends React.Component {
@@ -17,8 +17,7 @@ class Modal extends React.Component {
     mutation: ADD_POST
   }
   componentWillMount () {
-    this.socket = io("//godinner-socket-miguelc2.c9users.io/");
-    window.socket = this.socket
+    
     if (this.props.posts) {
       this.setState({...this.props.posts, richtext: RichText.createValueFromString(this.props.posts.content, 'html')})
     }
@@ -69,7 +68,7 @@ class Modal extends React.Component {
   }
   handleSubmit = (e, addPost) => {
     this.setState({mutation: ADD_POST})
-    this.socket.emit('postAdded', {post: 'OK'})
+   
     addPost({
       variables: {
         id: window.localStorage['id'],
@@ -82,7 +81,7 @@ class Modal extends React.Component {
   }
   handleUpdate = (e, updatePost) => {
     this.setState({mutation: UPDATE_POST})
-    this.socket.emit('postAdded', {post: 'OK'})
+   
    
     updatePost({
 
@@ -97,7 +96,7 @@ class Modal extends React.Component {
   }
   handleDelete = (e, deletePost) => {
     this.setState({mutation: REMOVE_POST})
-    this.socket.emit('postAdded', {post: 'OK'})
+   
 
     deletePost({
       variables: {id: this.props.posts.id}
