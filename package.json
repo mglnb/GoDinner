@@ -41,6 +41,7 @@
     "history": "^4.7.2",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "jsonp": "^0.2.1",
     "lodash": "^4.17.10",
     "node-sass": "^4.8.3",
     "object-assign": "4.1.1",
@@ -125,6 +126,7 @@
   },
   "devDependencies": {
     "antd": "^3.6.4",
+    "babel-plugin-import": "^1.8.0",
     "react-countup": "^3.0.3",
     "react-select": "^1.2.1"
   }

@@ -4,6 +4,7 @@ import { GET_CLIENTS_NAMES, ADD_ORDER } from "./graphql";
 import { Input, Form, Button, Icon } from "semantic-ui-react";
 import { Query, Mutation } from "react-apollo";
 import CustomLoader from "../Loader";
+import { notification } from "antd";
 import { query } from "../RestaurantProfile/graphql";
 class Modal extends React.Component {
   state = {
@@ -13,6 +14,20 @@ class Modal extends React.Component {
     price: 0
   };
   handleSubmit(e, mutation) {
+    const { client, table, options } = this.state;
+    if (!client || !table || options.length === 0) {
+      notification.error({
+        message: "Preencha todos os campos",
+        duration: 2.5,
+        key: "pedido_error"
+      });
+      return;
+    }
+    notification.open({
+      message: "Adicionando pedido...",
+      duration: 2.5,
+      key: "pedido_error"
+    });
     mutation({
       variables: {
         restaurant_id: localStorage["id"],
@@ -20,6 +35,12 @@ class Modal extends React.Component {
         restaurant_tables_id: this.state.table.id,
         menu_options: this.state.options.map(o => o.id)
       }
+    }).then(() => {
+      notification.success({
+        message: "Pedido adicionado com sucesso",
+        duration: 2.5,
+        key: "pedido_error"
+      });
     });
   }
   render() {
@@ -38,7 +59,7 @@ class Modal extends React.Component {
             id: t.id,
             state: t.state
           }));
-          const tables = tablesMap.filter(t => t.state === "Desocupada")
+          const tables = tablesMap.filter(t => t.state === "Desocupada");
           const options = [].flatten(this.props.menus.map(m => m.menu_options));
           const selectOptions = options.map(o => ({
             label: o.name,

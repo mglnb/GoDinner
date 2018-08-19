@@ -1,117 +1,152 @@
-import React from 'react'
-import { ApolloConsumer } from 'react-apollo';
-import { CSSTransition } from 'react-transition-group'
-import { Input, Button, Icon, Message } from 'semantic-ui-react';
-import RegisterSteps from './RegisterSteps'
-// import googleMapsClient from '@google/maps'
-import _ from 'lodash'
-import MaskedInput from 'react-maskedinput'
-import jsonp from 'jsonp'
-// const gmaps = googleMapsClient.createClient({
-//   key: 'AIzaSyCkUXgyaiuJ-8BERszscr5qwSOWHZI8Hq4',
-//   Promise: Promise
-// })
-import { register } from './graphql'
-
+import React from "react";
+import { ApolloConsumer } from "react-apollo";
+import { CSSTransition } from "react-transition-group";
+import { Input, Button, Icon, Message } from "semantic-ui-react";
+import RegisterSteps from "./RegisterSteps";
+import { notification } from "antd";
+import _ from "lodash";
+import MaskedInput from "react-maskedinput";
+import jsonp from "jsonp";
+import { register } from "./graphql";
 
 class Register extends React.PureComponent {
-
   state = {
     addressOptions: [],
-    cnpj: '',
-    name: '',
-    address: '',
-    number: '',
-    city: '',
-    uf: '',
-    telphone: '',
-    subname: '',
-    neighborhood: '',
+    cnpj: "",
+    name: "",
+    address: "",
+    number: "",
+    city: "",
+    uf: "",
+    telphone: "",
+    subname: "",
+    neighborhood: "",
     called: false,
     error: false,
     loading: false
-  }
-  status () {
+  };
+  status() {
     if (this.state.loading && this.state.called && !this.state.error) {
       return (
         <Message icon>
-          <Icon name='circle notched' loading />
+          <Icon name="circle notched" loading />
           <Message.Content>
             <Message.Header>Aguarde um pouquinho</Message.Header>
             Estamos verificando suas credenciais
-         </Message.Content>
+          </Message.Content>
         </Message>
-      )
+      );
     }
     if (this.state.called && this.state.error) {
       return (
-        <Message  icon negative onDismiss={this.handleDismiss}>
-          <Icon name='x' />
+        <Message icon negative onDismiss={this.handleDismiss}>
+          <Icon name="x" />
           <Message.Content>
             <Message.Header>Ops! ocorreu um erro </Message.Header>
             {this.state.error.message}
           </Message.Content>
         </Message>
-      )
+      );
     }
-    if(this.state.called && !this.state.error && !this.state.loading) {
+    if (this.state.called && !this.state.error && !this.state.loading) {
       return (
         <Message icon positive onDismiss={this.handleDismiss}>
-          <Icon color="green" name='check' />
+          <Icon color="green" name="check" />
           <Message.Content>
             <Message.Header>Usuário cadastrado!</Message.Header>
           </Message.Content>
         </Message>
-      )
+      );
     }
   }
   handleRegisterForm = async (e, client) => {
-    if (this.registerForm.checkValidity()) e.preventDefault()
-    this.setState({ address: `${this.state.address}, ${this.state.city}, ${this.state.uf.toUpperCase()}`, loading: true, called: true, error: false})
+    if (this.registerForm.checkValidity()) e.preventDefault();
+    this.setState({
+      address: `${this.state.address}, ${
+        this.state.city
+      }, ${this.state.uf.toUpperCase()}`,
+      loading: true,
+      called: true,
+      error: false
+    });
     const { data } = await client.mutate({
       mutation: register,
       variables: { ...this.state }
-    })
-    if(data.name) {
-      this.setState({loading: false, called: true, error: false})
+    });
+    if (data.name) {
+      this.setState({ loading: false, called: true, error: false });
     } else {
-      this.setState({loading: false, called: true, error: false})
+      this.setState({ loading: false, called: true, error: false });
     }
-  }
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+  };
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
   handleCNPJChange = _.debounce(() => {
-    if (this.state.cnpj.length > 0) {
+    if (this.state.cnpj.length > 8) {
+      notification.open({
+        key: "cnpj",
+        message: "Buscando CNPJ",
+        duration: 2000
+      });
+
       jsonp(
-        `https://www.receitaws.com.br/v1/cnpj/${cnpj}`,
+        `https://www.receitaws.com.br/v1/cnpj/${this.state.cnpj
+          .match(/\w/g)
+          .join("")}`,
         null,
         (err, json) => {
-          if (err) return;
-          if (json.status !== "OK") {
+          if (err) {
+            notification.open({
+              key: "cnpj",
+              message: `CNPJ Inválido`,
+              type: "error",
+              duration: 2000
+            });
             return;
           }
-          this.setState({
-            name: json.nome,
-            address: json.logradouro,
-            number: json.numero,
-            city: json.municipio,
-            uf: json.uf,
-            telphone: json.telefone,
-            subname: json.atividade_principal[0].text || "",
-            neighborhood: json.bairro
+          if (json.status !== "OK") {
+            notification.open({
+              key: "cnpj",
+              message: `CNPJ Inválido`,
+              type: "error",
+              duration: 2000
+            });
+            return;
+          }
+          notification.open({
+            key: "cnpj",
+            message: `Olá ${
+              json.nome
+            }, estamos preenchendo os campos para você`,
+            type: "success",
+            duration: 2000
           });
+          setTimeout(() => {
+            this.setState({
+              name: json.nome,
+              address: json.logradouro,
+              number: json.numero,
+              city: json.municipio,
+              uf: json.uf,
+              telphone: json.telefone,
+              subname: json.atividade_principal[0].text || "",
+              neighborhood: json.bairro
+            });
+          }, 1000);
         }
       );
     }
-  }, 700)
-  addStep() {
+  }, 700);
+  addStep(e) {
     if (this.registerForm.checkValidity()) {
-      this.props.addStep()
+      e.preventDefault()
+      this.props.addStep();
     }
   }
-  decreaseStep() {
-    this.props.decreaseStep()
+  decreaseStep(e) {
+    e.preventDefault()
+    this.props.decreaseStep();
   }
   render() {
     return (
@@ -120,24 +155,29 @@ class Register extends React.PureComponent {
           <React.Fragment>
             <RegisterSteps step={this.props.step} />
             <h2>Cadastre-se</h2>
-            <form ref={form => (this.registerForm = form)} onSubmit={(e) => this.handleRegisterForm(e, client)}>
+            <form
+              ref={form => (this.registerForm = form)}
+              onSubmit={e => this.handleRegisterForm(e, client)}
+            >
               <CSSTransition
                 in={this.props.step === 1}
                 out={`${this.props.step !== 1}`}
                 timeout={1000}
-                classNames={'inputs'}
+                classNames={"inputs"}
                 unmountOnExit
               >
                 <div>
                   <Input
-                    className={'left icon'}
+                    className={"left icon"}
                     children={
                       <React.Fragment>
                         <MaskedInput
                           name="cnpj"
-                          mask='11.111.111/1111-11'
+                          mask="11.111.111/1111-11"
                           placeholder="CNPJ"
-                          pattern={'[0-9]{2}\.[0-9]{3}\.[0-9]{3}\/[0-9]{4}\-[0-9]{2}'}
+                          pattern={
+                            "[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}"
+                          }
                           title="Digite o CNPJ no formato ###.###.###-##"
                           value={this.state.cnpj}
                           onChange={this.handleChange}
@@ -146,7 +186,6 @@ class Register extends React.PureComponent {
                         />
                         <Icon name="building outline" />
                       </React.Fragment>
-
                     }
                   />
                   <Input
@@ -166,7 +205,7 @@ class Register extends React.PureComponent {
                 in={this.props.step === 2}
                 out={`${this.props.step !== 2}`}
                 timeout={1000}
-                classNames={'inputs'}
+                classNames={"inputs"}
                 unmountOnExit
               >
                 <div>
@@ -181,7 +220,7 @@ class Register extends React.PureComponent {
                       value={this.state.address}
                       onChange={this.handleChange}
                       required
-                    // onKeyUp={this.handleKeyAddress}
+                      // onKeyUp={this.handleKeyAddress}
                     />
                     <Input
                       icon="map pin"
@@ -222,7 +261,7 @@ class Register extends React.PureComponent {
                 in={this.props.step === 3}
                 out={`${this.props.step !== 3}`}
                 timeout={1000}
-                classNames={'inputs'}
+                classNames={"inputs"}
                 unmountOnExit
               >
                 <div>
@@ -251,21 +290,31 @@ class Register extends React.PureComponent {
                 </div>
               </CSSTransition>
               <div className="button_group">
-                {this.props.step > 1 && this.props.step < 4 && (
-                  <Button labelPosition={'left'} icon onClick={() => this.decreaseStep()}>
-                    <Icon name='arrow left' />
-                    Voltar
-                  </Button>
-                )}
-                {this.props.step > 0 && this.props.step < 3 && (
-                  <Button icon labelPosition={'right'} onClick={() => this.addStep()}>
-                    <Icon name='arrow right' />
-                    Próximo
-                  </Button>
-                )}
+                {this.props.step > 1 &&
+                  this.props.step < 4 && (
+                    <Button
+                      labelPosition={"left"}
+                      icon
+                      onClick={(e) => this.decreaseStep(e)}
+                    >
+                      <Icon name="arrow left" />
+                      Voltar
+                    </Button>
+                  )}
+                {this.props.step > 0 &&
+                  this.props.step < 3 && (
+                    <Button
+                      icon
+                      labelPosition={"right"}
+                      onClick={(e) => this.addStep(e)}
+                    >
+                      <Icon name="arrow right" />
+                      Próximo
+                    </Button>
+                  )}
                 {this.props.step === 3 && (
-                  <Button icon labelPosition={'right'} type={'submit'}>
-                    <Icon name='send outline' />
+                  <Button icon labelPosition={"right"} type={"submit"}>
+                    <Icon name="send outline" />
                     Enviar
                   </Button>
                 )}
@@ -273,12 +322,14 @@ class Register extends React.PureComponent {
             </form>
             {this.status()}
             <div className={"login__register"}>
-              <a href="#/" onClick={() => this.props.flip()}>Já possui uma conta?</a>
+              <a href="#/" onClick={() => this.props.flip()}>
+                Já possui uma conta?
+              </a>
             </div>
           </React.Fragment>
         )}
       </ApolloConsumer>
-    )
+    );
   }
 }
-export default Register
+export default Register;

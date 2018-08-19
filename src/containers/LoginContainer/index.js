@@ -38,7 +38,7 @@ class LoginContainer extends React.PureComponent {
         localStorage['is'] = data.login.is
         localStorage['id'] = data.client ? data.login.client.id : data.login.restaurant.id
 
-        this.props.history.push(data.client ? '/client/home' : '/restaurant/home')
+        this.props.history.push(data.client ? '/client/home' : '/restaurant/dashboard')
       } catch (e) {
         this.setState({error: e})
       }
