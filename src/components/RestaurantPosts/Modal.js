@@ -71,10 +71,11 @@ class Modal extends React.Component {
         id: window.localStorage['id'],
         title: this.state.title,
         content: this.state.richtext.toString('html'),
-        status: 'Draft',
+        status: 1,
         image_url: this.state.image_url
       }
     })
+    this.props.closeModal()
   }
   handleUpdate = (e, updatePost) => {
     this.setState({mutation: UPDATE_POST})
@@ -85,10 +86,11 @@ class Modal extends React.Component {
         id: this.props.posts.id,
         title: this.state.title,
         content: this.state.richtext.toString('html'),
-        status: 'Draft',
+        status:1,
         image_url: this.state.image_url
       }
     })
+    this.props.closeModal()
   }
   handleDelete = (e, deletePost) => {
     this.setState({mutation: REMOVE_POST})

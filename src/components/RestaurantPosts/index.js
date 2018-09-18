@@ -40,7 +40,7 @@ class RestaurantPosts extends React.PureComponent {
                     <Card.Content>
                       <Card.Header>{post.title}</Card.Header>
                       <Card.Meta>{name}</Card.Meta>
-                      <Card.Description>{post.content.replace(/(<([^>]+)>)/ig, '')}</Card.Description>
+                      <Card.Description>{post.content.replace(/(<([^>]+)>)/ig, '').substring(0,100)}</Card.Description>
                     </Card.Content>
                     <Card.Content extra>
                       <Icon name='user' />
