@@ -5,10 +5,6 @@ import {Mutation} from 'react-apollo'
 import {ADD_POST, REMOVE_POST, UPDATE_POST} from './graphql'
 import {query} from '../RestaurantProfile/graphql'
 import firebase from '../../firebase'
-<<<<<<< HEAD
-=======
-
->>>>>>> 6f3e7de202ce82f5a806c9d6b688e0194ca1007b
 const storageRef = firebase.storage().ref()
 const postsRef = storageRef.child('posts');
 class Modal extends React.Component {
@@ -20,10 +16,6 @@ class Modal extends React.Component {
     mutation: ADD_POST
   }
   componentWillMount () {
-<<<<<<< HEAD
-=======
-    
->>>>>>> 6f3e7de202ce82f5a806c9d6b688e0194ca1007b
     if (this.props.posts) {
       this.setState({...this.props.posts, richtext: RichText.createValueFromString(this.props.posts.content, 'html')})
     }
@@ -74,10 +66,6 @@ class Modal extends React.Component {
   }
   handleSubmit = (e, addPost) => {
     this.setState({mutation: ADD_POST})
-<<<<<<< HEAD
-=======
-   
->>>>>>> 6f3e7de202ce82f5a806c9d6b688e0194ca1007b
     addPost({
       variables: {
         id: window.localStorage['id'],
@@ -91,10 +79,6 @@ class Modal extends React.Component {
   }
   handleUpdate = (e, updatePost) => {
     this.setState({mutation: UPDATE_POST})
-<<<<<<< HEAD
-=======
-   
->>>>>>> 6f3e7de202ce82f5a806c9d6b688e0194ca1007b
    
     updatePost({
 
@@ -110,10 +94,6 @@ class Modal extends React.Component {
   }
   handleDelete = (e, deletePost) => {
     this.setState({mutation: REMOVE_POST})
-<<<<<<< HEAD
-=======
-   
->>>>>>> 6f3e7de202ce82f5a806c9d6b688e0194ca1007b
 
     deletePost({
       variables: {id: this.props.posts.id}
