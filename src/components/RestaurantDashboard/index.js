@@ -5,6 +5,21 @@ import { Query } from "react-apollo";
 import { DASHBOARD } from "./graphql";
 import CustomLoader from "../Loader";
 class RestaurantDashboard extends React.Component {
+    months = {
+        "01": "Jan",
+        "02": "Fev",
+        "03": "Mar",
+        "04": "Abr",
+        "05": "Mai",
+        "06": "Jun",
+        "07": "Jul",
+        "08": "Ago",
+        "09": "Set",
+        "10": "Out",
+        "11": "Nov",
+        "12": "Dez"
+    };
+
     setMonths(months) {
         if (!months) return;
         let array = [];
@@ -13,15 +28,15 @@ class RestaurantDashboard extends React.Component {
             if (i < 10) {
                 j = `0${i}`;
             }
-            let month = months.find(({month}) => month == j)
+            let month = months.find(({ month }) => month == j);
             if (month) {
                 array.push({
-                    name: month.month,
+                    name: this.months[month.month],
                     Venda: month.sales
                 });
             } else {
                 array.push({
-                    name: j,
+                    name: this.months[j],
                     Venda: 0
                 });
             }

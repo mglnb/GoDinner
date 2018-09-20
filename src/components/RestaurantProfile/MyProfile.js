@@ -65,6 +65,18 @@ class MyProfile extends React.PureComponent {
                                 </Form.Field>
                                 <Form.Field>
                                     <div className="ui labeled input">
+                                        <label htmlFor="latitude" className="ui label label">Latitude: </label>
+                                        <input name="latitude" onChange={this.handleChange} value={this.state.restaurant.latitude} />
+                                    </div>
+                                </Form.Field>
+                                <Form.Field>
+                                    <div className="ui labeled input">
+                                        <label htmlFor="longitude" className="ui label label">Longitude: </label>
+                                        <input name="longitude" onChange={this.handleChange} value={this.state.restaurant.longitude} />
+                                    </div>
+                                </Form.Field>
+                                <Form.Field>
+                                    <div className="ui labeled input">
                                         <label htmlFor="phone_number" className="ui label label">Telefone: </label>
                                         <input name="phone_number" onChange={this.handleChange} value={this.state.restaurant.phone_number} />
                                     </div>

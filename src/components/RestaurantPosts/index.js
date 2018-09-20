@@ -36,7 +36,7 @@ class RestaurantPosts extends React.PureComponent {
               <Card.Group itemsPerRow={3} style={{zIndex: this.state.modal ? '-1' : '1', width: "100%"}}>
                 {posts.map((post, index) => (
                   <Card link onClick={() => this.openModal(index)} href={`#/restaurant/posts/${post.id}`} key={index}>
-                    <Image src={post.image_url} />
+                    <Image  className="restaurant_posts__image" src={post.image_url} />
                     <Card.Content>
                       <Card.Header>{post.title}</Card.Header>
                       <Card.Meta>{name}</Card.Meta>
