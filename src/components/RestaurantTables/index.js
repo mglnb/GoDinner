@@ -4,6 +4,7 @@ import { Query, Mutation } from "react-apollo";
 import { query } from "../RestaurantProfile/graphql";
 import CustomLoader from "../Loader";
 import { ADD_TABLE } from "./graphql";
+import QRCode from ''
 class RestaurantTables extends React.Component {
   handleCheckBox() {}
   render() {
@@ -19,8 +20,9 @@ class RestaurantTables extends React.Component {
                 <h1>Mesas</h1>
                 <Mutation
                   mutation={ADD_TABLE}
+                  variables={{ table_number: tables.length + 1}}
                   refetchQueries={[
-                    { query: query, variables: { id: localStorage["id"] } }
+                    { query: query, variables: { id: localStorage["id"]} }
                   ]}
                 >
                   {mutation => (
@@ -53,12 +55,12 @@ class RestaurantTables extends React.Component {
 
                   <Table.Body>
                     {tables.map(table => (
-                      <Table.Row key={"table-" + table.id}>
+                      <Table.Row key={"table-" + table.table_number}>
                         <Table.Cell>
                           <input
                             className="input_edit_table"
                             readOnly
-                            value={table.id}
+                            value={table.table_number}
                           />
                         </Table.Cell>
                         <Table.Cell verticalAlign="middle">
@@ -78,6 +80,7 @@ class RestaurantTables extends React.Component {
                             Imprimir
                             <Icon name="print" />
                           </Button>
+                          <QRCode />
                         </Table.Cell>
                         <Table.Cell>
                           <Button basic size="medium" color="red">

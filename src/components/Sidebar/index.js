@@ -12,7 +12,6 @@ class SidebarComponent extends React.Component {
         { name: 'dashboard', text: 'Dashboard', href: 'dashboard' },
         { name: 'food', text: 'Meu Perfil', href: 'perfil' },
         { name: 'feed', text: 'Posts', href: 'posts' },
-        { name: 'address book outline', text: 'Reservas', href: 'reservas' },
         { name: 'shop', text: 'Pedidos', href: 'pedidos' },
         { name: 'book', text: 'Cardápios', href: 'cardapios' },
         { name: 'grid layout', text: 'Mesas', href: 'mesas' },

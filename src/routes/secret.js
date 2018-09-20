@@ -4,7 +4,6 @@ import RestaurantPosts from '../components/RestaurantPosts'
 import RestaurantMenu from '../components/RestaurantMenu'
 import RestaurantTables from '../components/RestaurantTables'
 import RestaurantOrders from '../components/RestaurantOrders'
-import RestaurantBookings from '../components/RestaurantBookings'
 import RestaurantDashboard from '../components/RestaurantDashboard'
 export default [
   // {
@@ -29,10 +28,6 @@ export default [
   {
     path: '/restaurant/posts',
     component: RestaurantPosts
-  },
-  {
-    path: '/restaurant/reservas',
-    component: RestaurantBookings
   },
   {
     path: '/restaurant/pedidos',

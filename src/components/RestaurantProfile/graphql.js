@@ -45,7 +45,7 @@ query restaurant ($id: Int!) {
 			}
 		}
 		tables {
-			id, state
+			id, state, table_number, qr_code
 		}
 	}
 }
