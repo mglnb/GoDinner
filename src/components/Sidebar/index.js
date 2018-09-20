@@ -17,8 +17,8 @@ class SidebarComponent extends React.Component {
         { name: 'grid layout', text: 'Mesas', href: 'mesas' },
       ],
       dropdown: [
-        {key: 'user',  text: 'Perfil', href: "#/restaurant/meuperfil", icon: 'food'},
-        {key: 'settings', text: 'Configurações', icon: 'settings'},
+        {key: 'user',  text: 'Perfil', href: "#/restaurant/perfil", icon: 'food'},
+        // {key: 'settings', text: 'Configurações', icon: 'settings'},
         {key: 'sign-out', text: 'Sair', href: "#/", icon: 'sign out'},
       ]
     }

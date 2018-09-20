@@ -6,6 +6,7 @@ query restaurant ($id: Int!) {
 		user { id, name, email }
 		orders {
 			id
+			status
 			menu_options {
 				id
 				name

@@ -1,8 +1,9 @@
 .orders.modal {
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,.3);
-    &.active{
+    background: rgba(0, 0, 0, 0.3);
+
+    &.active {
         opacity: 1;
     }
     .modal__container {
@@ -17,12 +18,19 @@
         }
     }
     .Select-control input {
-        border: none ;
+        border: none;
         padding-left: 0;
     }
     .close {
-        &:before, &:after {
+        &:before,
+        &:after {
             background: black;
         }
     }
+}
+.disabled {
+    opacity: 0.3;
+}
+.content_body {
+    z-index: -1;
 }

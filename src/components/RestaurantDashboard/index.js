@@ -1,61 +1,76 @@
 import React from "react";
 import NumberCard from "./NumberCard";
 import SaleChart from "./SaleChart";
+import { Query } from "react-apollo";
+import { DASHBOARD } from "./graphql";
+import CustomLoader from "../Loader";
 class RestaurantDashboard extends React.Component {
-  data = [
-    {
-      Teste1: 210,
-      Teste2: 400,
-      name: "Janeiro"
-    },
-    {
-      Teste1: 400,
-      Teste2: 531,
-      name: "Fevereiro"
-    },
-    {
-      Teste1: 123,
-      Teste2: 532,
-      name: "Março"
-    },
-    {
-      Teste1: 634,
-      Teste2: 754,
-      name: "Abril"
-    },
-    {
-      Teste1: 454,
-      Teste2: 643,
-      name: "Maio"
-    },
-    {
-      Teste1: 513,
-      Teste2: 23,
-      name: "Junho"
+    setMonths(months) {
+        if (!months) return;
+        let array = [];
+        for (let i = 1; i <= 12; i++) {
+            let j = i;
+            if (i < 10) {
+                j = `0${i}`;
+            }
+            let month = months.find(({month}) => month == j)
+            if (month) {
+                array.push({
+                    name: month.month,
+                    Venda: month.sales
+                });
+            } else {
+                array.push({
+                    name: j,
+                    Venda: 0
+                });
+            }
+        }
+        return array;
     }
-  ];
-  labels = [
-    { name: "Teste1", color: "red" },
-    { name: "Teste2", color: "blue" }
-  ];
 
-  render() {
-    return (
-      <div className="content_container">
-        <div className="restaurant_dashboard__header">
-          <NumberCard icon="food" number="150" title="Pedidos desse mês" />
-          <NumberCard icon="dollar sign" currency number="3000" title="Total de Venda" />
-          <NumberCard icon="user" number="200" title="Total Clientes" />
-        </div>
-        <div className="restaurant_dashboard__charts">
-          <SaleChart
-            data={this.data}
-            title={"Vendas Mensal"}
-            labels={this.labels}
-          />
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <Query query={DASHBOARD}>
+                {({ data, loading, error }) => {
+                    if (loading) return <CustomLoader />;
+                    if (error) return <CustomLoader />;
+                    return (
+                        <div className="content_container">
+                            <div className="restaurant_dashboard__header">
+                                <NumberCard
+                                    icon="food"
+                                    number={data.dashboard.ordersNow}
+                                    title="Pedidos desse mês"
+                                />
+                                <NumberCard
+                                    icon="dollar"
+                                    currency
+                                    number={data.dashboard.totalSales}
+                                    title="Total de Venda"
+                                />
+                                <NumberCard
+                                    icon="user"
+                                    number={data.dashboard.totalClients}
+                                    title="Total Clientes"
+                                />
+                            </div>
+                            <div className="restaurant_dashboard__charts">
+                                <SaleChart
+                                    data={this.setMonths(
+                                        data.dashboard.salesPerMonth
+                                    )}
+                                    title={"Vendas Mensal"}
+                                    labels={[
+                                        { name: "Venda", color: "#007aff" }
+                                    ]}
+                                />
+                            </div>
+                        </div>
+                    );
+                }}
+            </Query>
+        );
+    }
 }
 export default RestaurantDashboard;

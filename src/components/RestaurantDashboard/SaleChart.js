@@ -71,9 +71,10 @@ function Sales(props) {
               );
             }}
           />
-          {props.labels.map(label => {
+          {props.labels.map((label,index) => {
             return <Line
               type="monotone"
+              key={index}
               dataKey={label.name}
               stroke={label.color}
               strokeWidth={3}
