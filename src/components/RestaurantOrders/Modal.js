@@ -54,7 +54,7 @@ class Modal extends React.Component {
             id: c.id
           }));
           const tablesMap = this.props.tables.map(t => ({
-            label: t.id,
+            label: t.table_number,
             value: t.id,
             id: t.id,
             state: t.state
