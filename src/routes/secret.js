@@ -3,6 +3,7 @@ import RestaurantProfile from '../components/RestaurantProfile'
 import RestaurantPosts from '../components/RestaurantPosts'
 import RestaurantMenu from '../components/RestaurantMenu'
 import RestaurantTables from '../components/RestaurantTables'
+import RestaurantTablesQRCode from '../components/RestaurantTables/qrcode'
 import RestaurantOrders from '../components/RestaurantOrders'
 import RestaurantDashboard from '../components/RestaurantDashboard'
 export default [
@@ -39,8 +40,14 @@ export default [
   },
   {
     path: '/restaurant/mesas',
+    exact: true,
     component: RestaurantTables
   },
+  {
+    path: '/restaurant/mesas/:id',
+    component: RestaurantTablesQRCode,
+    exact: true,
+  }
 
 ]
 
