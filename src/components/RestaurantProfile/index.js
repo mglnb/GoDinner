@@ -53,6 +53,9 @@ class RestaurantProfile extends React.Component {
           localStorage["avatar_url"] =
             restaurant.avatar_url ||
             "http://www.rathjenpt.com/wp-content/uploads/2016/09/default-user-img.jpg";
+
+          localStorage['user_id'] = restaurant.user.id
+
           return (
             data && (
               <React.Fragment>

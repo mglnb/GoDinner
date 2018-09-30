@@ -2,6 +2,22 @@ import React from 'react';
 import { Sidebar, Menu, Icon, Image, Dropdown } from 'semantic-ui-react';
 import {NavLink} from 'react-router-dom'
 import Logo from '../Logo' 
+import {notification} from 'antd'
+import Echo from '../../echo'
+
+Echo.private('App.User' + '.' + localStorage['user_id'])
+  .notification((object) => {
+    console.log(object)
+    notification.info({
+      message: object.data.message,
+      key: object.data.message,
+      duration: 2
+    }); 
+  })
+Echo.private('Users')
+  .notification(object => {
+    console.log(object)
+  })
 class SidebarComponent extends React.Component {
   constructor(props) {
     super(props);

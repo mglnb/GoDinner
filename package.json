@@ -49,6 +49,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
+    "pusher-js": "^4.3.1",
     "qrcode-react": "^0.1.16",
     "raf": "3.4.0",
     "react": "^16.3.2",
