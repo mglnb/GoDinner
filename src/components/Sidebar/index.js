@@ -14,10 +14,10 @@ Echo.private('App.User' + '.' + localStorage['user_id'])
       duration: 2
     }); 
   })
-Echo.private('Users')
-  .notification(object => {
-    console.log(object)
-  })
+// Echo.private('Users')
+//   .listen('TableStatusChange', object => {
+//     console.log(object)
+//   })
 class SidebarComponent extends React.Component {
   constructor(props) {
     super(props);

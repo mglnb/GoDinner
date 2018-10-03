@@ -29,6 +29,7 @@ export const query = gql`
                 }
                 restaurant_tables {
                     id
+                    table_number
                 }
                 client {
                     name

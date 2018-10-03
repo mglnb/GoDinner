@@ -27,6 +27,7 @@ class RestaurantOrders extends React.Component {
                     if (loading) return <CustomLoader size="huge" />;
                     if (error) return `${error}`;
                     const { tables, orders, menus } = data.restaurant[0];
+                    // console.log(orders)
                     return (
                         <div className="content_container">
                             {this.state.modalOpen && (

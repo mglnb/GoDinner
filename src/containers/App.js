@@ -23,7 +23,13 @@ const secret = new ApolloClient({
         authorization: token
       }
     });
+  },
+  onError(error) {
+    if(error.networkError.statusCode === 401) {
+      window.location.hash = '/'
+    }
   }
+  
 });
 
 const client = new ApolloClient({
