@@ -13,6 +13,7 @@ Echo.private('App.User' + '.' + localStorage['user_id'])
       key: object.data.message,
       duration: 2
     }); 
+    new window.Notification(object.data.message)
   })
 // Echo.private('Users')
 //   .listen('TableStatusChange', object => {
@@ -42,6 +43,7 @@ class SidebarComponent extends React.Component {
 
   componentDidMount() {
     this.setState({ visible: this.props.visible });
+    window.Notification.requestPermission()
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ visible: nextProps.visible })
