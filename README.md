@@ -12,7 +12,10 @@ O sistema administrativo está hospedado em https://godinner-backend.herokuapp.c
     
 ### Administrador do Restaurante
 
-O sistema administrativo do restaurante está hospedado em https://godinner-frontend.herokuapp.com/ e as credenciais são
+O sistema administrativo do restaurante está hospedado em https://godinner-frontend.herokuapp.com/
 
-**Usuário**: restaurante@godinner.com
-**Senha**: 123456
+Já está disponivel para cadastrar e logar normalmente.
+
+# Aplicativo
+
+Para fazer download do aplicativo, baixar por este [link](https://drive.google.com/file/d/1ywQ2SEwaBcq9EAoo6hRGAoPc0LOstasQ/view?usp=sharing)
