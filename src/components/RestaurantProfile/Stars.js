@@ -31,7 +31,7 @@ class Stars extends React.Component {
             Stars
           </Card.Header>
         </Card.Content>
-        <Card.Content>
+        <Card.Content style={{height: '450px'}}>
           <Feed>
             {this.Star()}
           </Feed>
